@@ -31,8 +31,7 @@ public class User {
 
     @JsonIgnore
     private String password;
-    
-    @Column(nullable = false)
+   
     @DecimalMax(value = "10")
     private BigDecimal mobilenumber;
 
@@ -41,8 +40,7 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
-    
-    @Column(nullable = false)
+   
     private Roles roles;
 
     public Long getId() {
