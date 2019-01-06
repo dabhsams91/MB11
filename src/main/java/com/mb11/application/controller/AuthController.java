@@ -25,7 +25,7 @@ import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.AuthResponse;
 import com.mb11.application.payload.Login;
 import com.mb11.application.payload.SignUp;
-import com.mb11.application.repository.UserRepository;
+import com.mb11.application.repository.user.UserRepository;
 import com.mb11.application.security.TokenProvider;
 
 @RestController

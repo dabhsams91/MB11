@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mb11.application.exception.ResourceNotFoundException;
 import com.mb11.application.model.user.User;
-import com.mb11.application.repository.UserRepository;
+import com.mb11.application.repository.user.UserRepository;
 import com.mb11.application.security.CurrentUser;
 import com.mb11.application.security.UserPrincipal;
 
