@@ -41,6 +41,9 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
+    
+    @Column(nullable = false)
+    private Roles roles;
 
     public Long getId() {
         return id;
@@ -112,6 +115,14 @@ public class User {
 
 	public void setMobilenumber(BigDecimal mobilenumber) {
 		this.mobilenumber = mobilenumber;
+	}
+
+	public Roles getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
    
 }
