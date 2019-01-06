@@ -1,5 +1,6 @@
 package com.mb11.application.security.auth;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -160,6 +161,8 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		user.setName(oAuth2UserInfo.getName());
 		user.setEmail(oAuth2UserInfo.getEmail());
 		user.setImageUrl(oAuth2UserInfo.getImageUrl());
+		
+		user.setMobilenumber(new BigDecimal(0000000000));
 		return userRepository.save(user);
 	}
 

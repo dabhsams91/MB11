@@ -74,7 +74,7 @@ public class AuthController {
         user.setEmail(signUpRequest.getEmail());
         user.setPassword(signUpRequest.getPassword());
         user.setProvider(AuthProvider.local);
-        if(signUpRequest.getMobilenumber()!=null) {
+        if(signUpRequest.getMobilenumber()!=null ) {
         	user.setMobilenumber(signUpRequest.getMobilenumber());
         }else {
         	user.setMobilenumber(new BigDecimal(0000000000));

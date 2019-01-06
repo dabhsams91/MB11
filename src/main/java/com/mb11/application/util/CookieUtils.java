@@ -49,16 +49,11 @@ public class CookieUtils {
     }
 
     public static String serialize(Object object) {
-    	String string= Base64.getUrlEncoder().encodeToString(SerializationUtils.serialize(object));
-    	System.out.println(string);
-        return string;
+        return Base64.getUrlEncoder().encodeToString(SerializationUtils.serialize(object));
     }
 
     public static <T> T deserialize(Cookie cookie, Class<T> cls) {
-    	System.out.println("cookie.getValue()"+cookie.getValue());
-    	System.out.println("cookie.getValue()"+(Base64.getUrlDecoder().decode(cookie.getValue().getBytes(StandardCharsets.UTF_8))));
-    	System.out.println(SerializationUtils.deserialize(Base64.getUrlDecoder().decode(cookie.getValue().getBytes(Charset.defaultCharset()))));
-        return cls.cast(SerializationUtils.deserialize(Base64.getUrlDecoder().decode(cookie.getValue().getBytes(Charset.defaultCharset()))));
+    	return cls.cast(SerializationUtils.deserialize(Base64.getUrlDecoder().decode(cookie.getValue().getBytes(Charset.defaultCharset()))));
     }
 
 }
