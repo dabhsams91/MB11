@@ -12,13 +12,13 @@ import com.mb11.application.util.CookieUtils;
 @Component
 public class HttpCookieAuthRequestRepository implements AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
     
-	public static final String AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
+	public static final String AUTHORIZATION_REQUEST_COOKIE_NAME = "auth_request";
     public static final String PLACE_URI_PARAM_COOKIE_NAME = "redirect_uri";
     private static final int cookieExpireSeconds = 180;
 
     @Override
     public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
-        return CookieUtils.getCookie(request, PLACE_URI_PARAM_COOKIE_NAME)
+        return CookieUtils.getCookie(request, AUTHORIZATION_REQUEST_COOKIE_NAME)
                 .map(cookie -> CookieUtils.deserialize(cookie, OAuth2AuthorizationRequest.class))
                 .orElse(null);
     }
