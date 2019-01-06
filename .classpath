@@ -33,6 +33,5 @@
 			<attribute name="maven.scope" value="compile"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/spring-social"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
