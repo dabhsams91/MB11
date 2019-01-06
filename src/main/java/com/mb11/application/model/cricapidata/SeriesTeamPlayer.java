@@ -24,6 +24,7 @@ public class SeriesTeamPlayer {
 	@Column(nullable = false)
 	private String pfirstname;
 	
+	@Column
 	private String pmiddlename;
 
 	@Column(nullable = false)
