@@ -31,8 +31,8 @@ import org.springframework.web.client.RestOperations;
 import org.springframework.web.client.RestTemplate;
 
 import com.mb11.application.exception.AuthenticationProcessingException;
-import com.mb11.application.model.AuthProvider;
-import com.mb11.application.model.User;
+import com.mb11.application.model.user.AuthProvider;
+import com.mb11.application.model.user.User;
 import com.mb11.application.repository.UserRepository;
 import com.mb11.application.security.UserPrincipal;
 import com.mb11.application.security.authuser.OAuth2UserInfo;

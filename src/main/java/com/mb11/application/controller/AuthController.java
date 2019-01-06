@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.mb11.application.exception.BadRequestException;
-import com.mb11.application.model.AuthProvider;
-import com.mb11.application.model.User;
+import com.mb11.application.model.user.AuthProvider;
+import com.mb11.application.model.user.User;
 import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.AuthResponse;
 import com.mb11.application.payload.Login;

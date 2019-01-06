@@ -1,4 +1,4 @@
-package com.mb11.application.model;
+package com.mb11.application.model.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;

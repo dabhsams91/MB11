@@ -3,7 +3,7 @@ package com.mb11.application.security.authuser;
 import java.util.Map;
 
 import com.mb11.application.exception.AuthenticationProcessingException;
-import com.mb11.application.model.AuthProvider;
+import com.mb11.application.model.user.AuthProvider;
 
 public class OAuth2UserInfoFactory {
 

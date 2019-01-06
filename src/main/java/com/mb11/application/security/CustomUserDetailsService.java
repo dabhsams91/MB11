@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mb11.application.exception.ResourceNotFoundException;
-import com.mb11.application.model.User;
+import com.mb11.application.model.user.User;
 import com.mb11.application.repository.UserRepository;
 
 @Service
