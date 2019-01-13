@@ -102,7 +102,7 @@ public class MB11SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-                    .antMatchers("/auth/**", "/oauth2/**")
+                    .antMatchers("/auth/**", "/oauth2/**","/cricapi/**")
                         .permitAll()
                     .anyRequest()
                         .authenticated()
@@ -122,6 +122,6 @@ public class MB11SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(authenticationFailureHandler);
 
         // Add our custom Token based authentication filter
-        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
