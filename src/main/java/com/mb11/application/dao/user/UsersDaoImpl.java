@@ -3,7 +3,9 @@ package com.mb11.application.dao.user;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,17 +88,25 @@ public class UsersDaoImpl implements UsersDAO {
 
 	@Override
 	public User findByEmail(String email) {
-		String hql = "FROM User as usr where usr.email="+email;
-		User user = (User) entityManager.createQuery(hql).getSingleResult();
-		return user;
-	}
-	
-	@Override
-	public User findByMobilenumber(String mobilenumber) {
-		String hql = "FROM User as usr where usr.mobilenumber="+mobilenumber;
-		User user = (User) entityManager.createQuery(hql).getSingleResult();
-		return user;
-		
+		try {
+			String hql = "FROM User as usr where usr.email= :email";
+			Query query = entityManager.createQuery(hql).setParameter("email", email);
+			User user = (User) query.getSingleResult();
+			return user;
+		} catch (NoResultException noResultException) {
+			return null;
+		}
 	}
 
+	@Override
+	public User findByMobilenumber(String mobilenumber) {
+		String hql = "FROM User as usr where usr.mobilenumber= :mobilenumber";
+		try {
+			Query query = entityManager.createQuery(hql).setParameter("mobilenumber", mobilenumber);
+			User user = (User) query.getSingleResult();
+			return user;
+		} catch (NoResultException noResultException) {
+			return null;
+		}
+	}
 }

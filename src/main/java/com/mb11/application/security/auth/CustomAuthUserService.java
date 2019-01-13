@@ -126,6 +126,7 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private OAuth2User processOAuth2User(OAuth2UserRequest oAuth2UserRequest, OAuth2User oAuth2User) {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
 				oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
@@ -136,15 +137,18 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		User userOptional = usersService.findByEmail(oAuth2UserInfo.getEmail());
 
 		User user = null;
-		if (!userOptional.getProvider()
-				.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
-			throw new AuthenticationProcessingException(
-					"Looks like you're signed up with " + userOptional.getProvider() + " account. Please use your "
-							+ userOptional.getProvider() + " account to login.");
+		if(user!=null) {
+			if (!userOptional.getProvider()
+					.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+				throw new AuthenticationProcessingException(
+						"Looks like you're signed up with " + userOptional.getProvider() + " account. Please use your "
+								+ userOptional.getProvider() + " account to login.");
+			}else {
+				user = updateExistingUser(userOptional, oAuth2UserInfo);
+			}	
 		}else {
-			user = updateExistingUser(userOptional, oAuth2UserInfo);
+			user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
 		}
-		
 		return UserPrincipal.create(user, oAuth2User.getAttributes());
 	}
 

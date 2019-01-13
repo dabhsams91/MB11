@@ -16,6 +16,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Users.
@@ -37,8 +39,6 @@ public class User {
 	@Column(length=50)
 	private String email;
 	
-	/** The image url. */
-	@Column(name="imageurl",length=100)
 	private String imageUrl;
 	
 	/** The email verified. */
@@ -47,6 +47,7 @@ public class User {
 	
 	/** The password. */
 	@Column(length=50)
+	@JsonIgnore
 	private String password;
 	
 	/** The mobilenumber. */
