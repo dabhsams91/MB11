@@ -1,7 +1,5 @@
 package com.mb11.application.payload;
 
-import java.math.BigDecimal;
-
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

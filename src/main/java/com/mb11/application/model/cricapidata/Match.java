@@ -15,51 +15,49 @@ import javax.persistence.Table;
  * The Class Match.
  */
 @Entity
-@Table(name="Matches")
-public class Match  {
-	
+@Table(name = "Matches")
+public class Match {
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The matchname. */
-	@Column(nullable = false,length=30)
+	@Column(nullable = false, length = 30)
 	private String matchname;
-	
+
 	/** The sid. */
 	@Column(nullable = false)
 	@OneToMany
-	private List<Series> sid=new ArrayList<>();
-	
+	private List<Series> sid = new ArrayList<>();
+
 	/**
 	 * Instantiates a new match.
 	 */
-	public Match()
-	{
-		
+	public Match() {
+
 	}
 
 	/**
 	 * Instantiates a new match.
 	 *
 	 * @param matchname the matchname
-	 * @param sid the sid
+	 * @param sid       the sid
 	 */
 	public Match(String matchname, List<Series> sid) {
 		super();
-		
+
 		this.matchname = matchname;
 		this.sid = sid;
 	}
-	
-	
+
 	/**
 	 * Instantiates a new match.
 	 *
-	 * @param iD the i D
+	 * @param iD        the i D
 	 * @param matchname the matchname
-	 * @param sid the sid
+	 * @param sid       the sid
 	 */
 	public Match(Long iD, String matchname, List<Series> sid) {
 		super();
@@ -67,9 +65,6 @@ public class Match  {
 		this.matchname = matchname;
 		this.sid = sid;
 	}
-
-
-
 
 	/**
 	 * Gets the id.
@@ -124,8 +119,5 @@ public class Match  {
 	public void setSid(List<Series> sid) {
 		this.sid = sid;
 	}
-
-	
-	
 
 }

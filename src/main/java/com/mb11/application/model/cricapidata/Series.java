@@ -15,94 +15,79 @@ import javax.validation.constraints.NotNull;
  * The Class Series.
  */
 @Entity
-@Table(name="Series")
+@Table(name = "Series")
 public class Series {
-	   
-	   /** The id. */
-   	@Id
-	   @GeneratedValue(strategy=GenerationType.IDENTITY)
-	   @Column(name="id")
-	   private long ID; 
-	   
-	   /** The series id. */
-   	@NotNull
-	   @Column(name="seriesid",unique = true,length=30)
-	   private String seriesId;
-	   
-	   /** The sname. */
-   	@Column(nullable = false,length=30)
-	   private String sname;
-	   
-	   /** The startdate. */
-   	@Column(nullable = false)
-	   private Date startdate;
-	   
-	   /** The enddate. */
-   	@Column(nullable = false)
-	   private Date enddate;
-	   
-	   /** The totalmatch. */
-   	@Column(nullable = false)
-	   private int totalmatch;
-	   
-	   
-	   /**
-   	 * Instantiates a new series.
-   	 */
-   	public Series()
-	   {
-		   
-		}
-	   
-	   
-	   
-  
-	
 
+	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private long ID;
 
-	   /**
-   	 * Instantiates a new series.
-   	 *
-   	 * @param seriesId the series id
-   	 * @param sname the sname
-   	 * @param startdate the startdate
-   	 * @param enddate the enddate
-   	 * @param totalmatch the totalmatch
-   	 */
-   	public Series(String seriesId, String sname, Date startdate, Date enddate, int totalmatch) {
-			super();
-		
-			this.seriesId = seriesId;
-			this.sname = sname;
-			this.startdate = startdate;
-			this.enddate = enddate;
-			this.totalmatch = totalmatch;
-		}
-	   
+	/** The series id. */
+	@NotNull
+	@Column(name = "seriesid", unique = true, length = 30)
+	private String seriesId;
+
+	/** The sname. */
+	@Column(nullable = false, length = 30)
+	private String sname;
+
+	/** The startdate. */
+	@Column(nullable = false)
+	private Date startdate;
+
+	/** The enddate. */
+	@Column(nullable = false)
+	private Date enddate;
+
+	/** The totalmatch. */
+	@Column(nullable = false)
+	private int totalmatch;
+
+	@Column(nullable = false)
+	private Boolean status;
+
 	/**
 	 * Instantiates a new series.
 	 *
-	 * @param iD the i D
-	 * @param seriesId the series id
-	 * @param sname the sname
-	 * @param startdate the startdate
-	 * @param enddate the enddate
+	 * @param seriesId   the series id
+	 * @param sname      the sname
+	 * @param startdate  the startdate
+	 * @param enddate    the enddate
 	 * @param totalmatch the totalmatch
 	 */
-	public Series(long iD, String seriesId, String sname, Date startdate, Date enddate, int totalmatch) {
-		super();
-		ID = iD;
+	public Series(String seriesId, String sname, Date startdate, Date enddate, int totalmatch, Boolean status) {
+
 		this.seriesId = seriesId;
 		this.sname = sname;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.totalmatch = totalmatch;
+		this.status = status;
 	}
 
-
-
-
-
+	/**
+	 * Instantiates a new series.
+	 *
+	 * @param iD         the i D
+	 * @param seriesId   the series id
+	 * @param sname      the sname
+	 * @param startdate  the startdate
+	 * @param enddate    the enddate
+	 * @param totalmatch the totalmatch
+	 */
+	public Series(long id, String seriesId, String sname, Date startdate, Date enddate, int totalmatch,
+			Boolean status) {
+		super();
+		ID = id;
+		this.seriesId = seriesId;
+		this.sname = sname;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.totalmatch = totalmatch;
+		this.status = status;
+	}
 
 	/**
 	 * Gets the id.
@@ -113,7 +98,6 @@ public class Series {
 		return ID;
 	}
 
-
 	/**
 	 * Sets the id.
 	 *
@@ -122,7 +106,6 @@ public class Series {
 	public void setID(long iD) {
 		ID = iD;
 	}
-
 
 	/**
 	 * Gets the series id.
@@ -133,7 +116,6 @@ public class Series {
 		return seriesId;
 	}
 
-
 	/**
 	 * Sets the series id.
 	 *
@@ -142,7 +124,6 @@ public class Series {
 	public void setSeriesId(String seriesId) {
 		this.seriesId = seriesId;
 	}
-
 
 	/**
 	 * Gets the sname.
@@ -153,7 +134,6 @@ public class Series {
 		return sname;
 	}
 
-
 	/**
 	 * Sets the sname.
 	 *
@@ -162,7 +142,6 @@ public class Series {
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
-
 
 	/**
 	 * Gets the startdate.
@@ -173,7 +152,6 @@ public class Series {
 		return startdate;
 	}
 
-
 	/**
 	 * Sets the startdate.
 	 *
@@ -182,7 +160,6 @@ public class Series {
 	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
-
 
 	/**
 	 * Gets the enddate.
@@ -193,7 +170,6 @@ public class Series {
 		return enddate;
 	}
 
-
 	/**
 	 * Sets the enddate.
 	 *
@@ -202,7 +178,6 @@ public class Series {
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}
-
 
 	/**
 	 * Gets the totalmatch.
@@ -213,7 +188,6 @@ public class Series {
 		return totalmatch;
 	}
 
-
 	/**
 	 * Sets the totalmatch.
 	 *
@@ -223,12 +197,9 @@ public class Series {
 		this.totalmatch = totalmatch;
 	}
 
-
-
-
-
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -236,10 +207,13 @@ public class Series {
 		return "Series [ID=" + ID + ", seriesId=" + seriesId + ", sname=" + sname + ", startdate=" + startdate
 				+ ", enddate=" + enddate + ", totalmatch=" + totalmatch + "]";
 	}
-	
-	
-	
-	   
-	   
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
 
 }
