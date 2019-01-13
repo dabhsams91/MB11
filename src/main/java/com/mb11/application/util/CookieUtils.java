@@ -1,14 +1,14 @@
 package com.mb11.application.util;
 
-import org.springframework.util.SerializationUtils;
+import java.nio.charset.Charset;
+import java.util.Base64;
+import java.util.Optional;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Optional;
+import org.springframework.util.SerializationUtils;
 
 public class CookieUtils {
 

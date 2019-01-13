@@ -17,7 +17,7 @@ public class SignUp {
     private String password;
     
     @DecimalMax(value = "10")
-    private BigDecimal mobilenumber;
+    private String mobilenumber;
 
     public String getName() {
         return name;
@@ -43,11 +43,11 @@ public class SignUp {
         this.password = password;
     }
 
-	public BigDecimal getMobilenumber() {
+	public String getMobilenumber() {
 		return mobilenumber;
 	}
 
-	public void setMobilenumber(BigDecimal mobilenumber) {
+	public void setMobilenumber(String mobilenumber) {
 		this.mobilenumber = mobilenumber;
 	}    
     

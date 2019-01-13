@@ -1,80 +1,125 @@
 package com.mb11.application.model.cricapidata;
 
-import javax.persistence.Column;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SeriesTeamPlayer.
+ */
 @Entity
-@Table(name = "seriesteamplayer")
+@Table(name="SeriesTeamPlayer")
 public class SeriesTeamPlayer {
-
+	
+	/** The id. */
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-	@Column(nullable = false)
-	private Series sid;
+	@GeneratedValue
+	private Long ID;
 	
-	@Column(nullable = false)
-	private MTeam mid;
+	/** The sid. */
+	@ManyToMany
+	private List<Series> sid=new ArrayList<>();
 	
-	@Column(nullable = false)
-	private String pfirstname;
+	/** The tpid. */
+	@ManyToMany
+	private List<TeamPlayers> tpid=new ArrayList<>();
 	
-	@Column
-	private String pmiddlename;
-
-	@Column(nullable = false)
-	private String plastname;
-
-	public Long getId() {
-		return id;
+	/**
+	 * Instantiates a new series team player.
+	 */
+	public SeriesTeamPlayer()
+	{
+		
+	}
+	
+	/**
+	 * Instantiates a new series team player.
+	 *
+	 * @param sid the sid
+	 * @param tpid the tpid
+	 */
+	public SeriesTeamPlayer(List<Series> sid, List<TeamPlayers> tpid) {
+		super();
+		
+		this.sid = sid;
+		this.tpid = tpid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	/**
+	 * Instantiates a new series team player.
+	 *
+	 * @param iD the i D
+	 * @param sid the sid
+	 * @param tpid the tpid
+	 */
+	public SeriesTeamPlayer(Long iD, List<Series> sid, List<TeamPlayers> tpid) {
+		super();
+		ID = iD;
+		this.sid = sid;
+		this.tpid = tpid;
 	}
 
-	public Series getSid() {
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getID() {
+		return ID;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param iD the new id
+	 */
+	public void setID(Long iD) {
+		ID = iD;
+	}
+
+	/**
+	 * Gets the sid.
+	 *
+	 * @return the sid
+	 */
+	public List<Series> getSid() {
 		return sid;
 	}
 
-	public void setSid(Series sid) {
+	/**
+	 * Sets the sid.
+	 *
+	 * @param sid the new sid
+	 */
+	public void setSid(List<Series> sid) {
 		this.sid = sid;
 	}
 
-	public MTeam getMid() {
-		return mid;
+	/**
+	 * Gets the tpid.
+	 *
+	 * @return the tpid
+	 */
+	public List<TeamPlayers> getTpid() {
+		return tpid;
 	}
 
-	public void setMid(MTeam mid) {
-		this.mid = mid;
+	/**
+	 * Sets the tpid.
+	 *
+	 * @param tpid the new tpid
+	 */
+	public void setTpid(List<TeamPlayers> tpid) {
+		this.tpid = tpid;
 	}
 
-	public String getPfirstname() {
-		return pfirstname;
-	}
+	
+	
 
-	public void setPfirstname(String pfirstname) {
-		this.pfirstname = pfirstname;
-	}
-
-	public String getPmiddlename() {
-		return pmiddlename;
-	}
-
-	public void setPmiddlename(String pmiddlename) {
-		this.pmiddlename = pmiddlename;
-	}
-
-	public String getPlastname() {
-		return plastname;
-	}
-
-	public void setPlastname(String plastname) {
-		this.plastname = plastname;
-	}
 }

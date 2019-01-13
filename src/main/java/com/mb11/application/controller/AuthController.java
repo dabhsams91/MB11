@@ -1,6 +1,5 @@
 package com.mb11.application.controller;
 
-import java.math.BigDecimal;
 import java.net.URI;
 
 import javax.validation.Valid;
@@ -25,8 +24,8 @@ import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.AuthResponse;
 import com.mb11.application.payload.Login;
 import com.mb11.application.payload.SignUp;
-import com.mb11.application.repository.user.UserRepository;
 import com.mb11.application.security.TokenProvider;
+import com.mb11.application.service.user.UsersService;
 
 @RestController
 @RequestMapping("/auth")
@@ -36,7 +35,7 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
     
     @Autowired
-    private UserRepository userRepository;
+	private UsersService usersService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -62,9 +61,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUp signUpRequest) {
-    	if(userRepository.existsByEmail(signUpRequest.getEmail())) {
+    	if(usersService.findByEmail(signUpRequest.getEmail())!=null) {
             throw new BadRequestException("Email address already in use.");
-        }else if(userRepository.existsByMobilenumber(signUpRequest.getMobilenumber())) {
+        }else if(usersService.findByMobilenumber(signUpRequest.getMobilenumber())!=null) {
             throw new BadRequestException("Mobile number already in use.");
         }
     	
@@ -77,16 +76,16 @@ public class AuthController {
         if(signUpRequest.getMobilenumber()!=null ) {
         	user.setMobilenumber(signUpRequest.getMobilenumber());
         }else {
-        	user.setMobilenumber(new BigDecimal(0000000000));
+        	user.setMobilenumber("0000000000");
         }
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        User result = userRepository.save(user);
+        User result = usersService.addUsers(user);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/user/me")
-                .buildAndExpand(result.getId()).toUri();
+                .buildAndExpand(result.getID()).toUri();
 
         return ResponseEntity.created(location)
                 .body(new ApiResponse(true, "User registered successfully@"));

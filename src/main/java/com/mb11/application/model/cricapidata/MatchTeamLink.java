@@ -1,48 +1,127 @@
 package com.mb11.application.model.cricapidata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class MatchTeamLink.
+ */
 @Entity
-@Table(name = "matchteamlink")
+@Table(name="MatchTeamLink")
 public class MatchTeamLink {
-
+	
+	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+	@GeneratedValue
+	private Long ID;
+	
+	/** The mid. */
 	@Column(nullable = false)
-	private Match mid;
-
+	@OneToMany
+	private List<Match> mid=new ArrayList<>();
+	
+	/** The seriesteamlinkid. */
 	@Column(nullable = false)
-	private SeriesTeamLink seriesTeamLinkId;
+	@OneToMany
+	private List<SeriesTeamLink> seriesteamlinkid=new ArrayList<>();;
+	
+	/**
+	 * Instantiates a new match team link.
+	 */
+	public MatchTeamLink()
+	{
+		
+	}
+	
+	/**
+	 * Instantiates a new match team link.
+	 *
+	 * @param mid the mid
+	 * @param seriesteamlinkid the seriesteamlinkid
+	 */
+	public MatchTeamLink(List<Match> mid, List<SeriesTeamLink> seriesteamlinkid) {
+		super();
 
-	public Long getId() {
-		return id;
+		this.mid = mid;
+		this.seriesteamlinkid = seriesteamlinkid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	/**
+	 * Instantiates a new match team link.
+	 *
+	 * @param iD the i D
+	 * @param mid the mid
+	 * @param seriesteamlinkid the seriesteamlinkid
+	 */
+	public MatchTeamLink(Long iD, List<Match> mid, List<SeriesTeamLink> seriesteamlinkid) {
+		super();
+		ID = iD;
+		this.mid = mid;
+		this.seriesteamlinkid = seriesteamlinkid;
 	}
 
-	public Match getMid() {
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getID() {
+		return ID;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param iD the new id
+	 */
+	public void setID(Long iD) {
+		ID = iD;
+	}
+
+	/**
+	 * Gets the mid.
+	 *
+	 * @return the mid
+	 */
+	public List<Match> getMid() {
 		return mid;
 	}
 
-	public void setMid(Match mid) {
+	/**
+	 * Sets the mid.
+	 *
+	 * @param mid the new mid
+	 */
+	public void setMid(List<Match> mid) {
 		this.mid = mid;
 	}
 
-	public SeriesTeamLink getSeriesTeamLinkId() {
-		return seriesTeamLinkId;
+	/**
+	 * Gets the seriesteamlinkid.
+	 *
+	 * @return the seriesteamlinkid
+	 */
+	public List<SeriesTeamLink> getSeriesteamlinkid() {
+		return seriesteamlinkid;
 	}
 
-	public void setSeriesTeamLinkId(SeriesTeamLink seriesTeamLinkId) {
-		this.seriesTeamLinkId = seriesTeamLinkId;
+	/**
+	 * Sets the seriesteamlinkid.
+	 *
+	 * @param seriesteamlinkid the new seriesteamlinkid
+	 */
+	public void setSeriesteamlinkid(List<SeriesTeamLink> seriesteamlinkid) {
+		this.seriesteamlinkid = seriesteamlinkid;
 	}
+
+	
 
 }

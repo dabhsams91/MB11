@@ -8,11 +8,11 @@ import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Roles.
+ * The Class MInvitePlatform.
  */
 @Entity
-@Table(name="Roles")
-public class Roles {
+@Table(name="MInvitePlatform")
+public class MInvitePlatform {
 	
 	/** The id. */
 	@Id
@@ -23,39 +23,37 @@ public class Roles {
 	@Column(nullable=false,unique=true)
 	private String name;
 	
-	
-
 	/**
-	 * Instantiates a new roles.
+	 * Instantiates a new m invite platform.
 	 */
-	public Roles() {
+	public MInvitePlatform()
+	{
 		
 	}
 	
 	/**
-	 * Instantiates a new roles.
+	 * Instantiates a new m invite platform.
 	 *
 	 * @param name the name
 	 */
-	public Roles(String name) {
+	public MInvitePlatform(String name) {
 		super();
 		
 		this.name = name;
 	}
-	
-	
+
 	/**
-	 * Instantiates a new roles.
+	 * Instantiates a new m invite platform.
 	 *
 	 * @param iD the i D
 	 * @param name the name
 	 */
-	public Roles(Long iD, String name) {
+	public MInvitePlatform(Long iD, String name) {
 		super();
 		ID = iD;
 		this.name = name;
 	}
-	
+
 	/**
 	 * Gets the id.
 	 *
@@ -64,7 +62,7 @@ public class Roles {
 	public Long getID() {
 		return ID;
 	}
-	
+
 	/**
 	 * Sets the id.
 	 *
@@ -73,7 +71,7 @@ public class Roles {
 	public void setID(Long iD) {
 		ID = iD;
 	}
-	
+
 	/**
 	 * Gets the name.
 	 *
@@ -82,7 +80,7 @@ public class Roles {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Sets the name.
 	 *
@@ -93,6 +91,7 @@ public class Roles {
 	}
 	
 	
-
+	
+	
 
 }

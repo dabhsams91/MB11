@@ -1,9 +1,7 @@
 package com.mb11.application.security.auth;
 
-import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +31,10 @@ import org.springframework.web.client.RestTemplate;
 import com.mb11.application.exception.AuthenticationProcessingException;
 import com.mb11.application.model.user.AuthProvider;
 import com.mb11.application.model.user.User;
-import com.mb11.application.repository.user.UserRepository;
 import com.mb11.application.security.UserPrincipal;
 import com.mb11.application.security.authuser.OAuth2UserInfo;
 import com.mb11.application.security.authuser.OAuth2UserInfoFactory;
+import com.mb11.application.service.user.UsersService;
 
 @Service
 public class CustomAuthUserService extends DefaultOAuth2UserService {
@@ -51,7 +49,7 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 	};
 
 	@Autowired
-	private UserRepository userRepository;
+	private UsersService usersService;
 
 	private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new CustAuthUserRequestEntityConverter();
 
@@ -135,21 +133,18 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 			throw new AuthenticationProcessingException("Email not found from OAuth2 provider");
 		}
 
-		Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
-		User user;
-		if (userOptional.isPresent()) {
-			user = userOptional.get();
-			if (!user.getProvider()
-					.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
-				throw new AuthenticationProcessingException(
-						"Looks like you're signed up with " + user.getProvider() + " account. Please use your "
-								+ user.getProvider() + " account to login.");
-			}
-			user = updateExistingUser(user, oAuth2UserInfo);
-		} else {
-			user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
-		}
+		User userOptional = usersService.findByEmail(oAuth2UserInfo.getEmail());
 
+		User user = null;
+		if (!userOptional.getProvider()
+				.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
+			throw new AuthenticationProcessingException(
+					"Looks like you're signed up with " + userOptional.getProvider() + " account. Please use your "
+							+ userOptional.getProvider() + " account to login.");
+		}else {
+			user = updateExistingUser(userOptional, oAuth2UserInfo);
+		}
+		
 		return UserPrincipal.create(user, oAuth2User.getAttributes());
 	}
 
@@ -162,14 +157,14 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		user.setEmail(oAuth2UserInfo.getEmail());
 		user.setImageUrl(oAuth2UserInfo.getImageUrl());
 		
-		user.setMobilenumber(new BigDecimal(0000000000));
-		return userRepository.save(user);
+		user.setMobilenumber("0000000000");
+		return usersService.addUsers(user);
 	}
 
 	private User updateExistingUser(User existingUser, OAuth2UserInfo oAuth2UserInfo) {
 		existingUser.setName(oAuth2UserInfo.getName());
 		existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-		return userRepository.save(existingUser);
+		return usersService.addUsers(existingUser);
 	}
 
 }

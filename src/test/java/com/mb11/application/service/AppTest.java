@@ -1,4 +1,4 @@
-package com.mb11;
+package com.mb11.application.service;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,230 +1,484 @@
 package com.mb11.application.model.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.LocalDateTime;
+import java.util.Date;
 
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.sql.Timestamp;
-
-import javax.persistence.*;
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.Email;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Users.
+ */
 @Entity
-@Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "email"),
-		@UniqueConstraint(columnNames = "displayname") })
+@Table(name="Users")
 public class User {
+	
+	/** The id. */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@Column(nullable = false)
+	@GeneratedValue
+	private Long ID;
+	
+	/** The name. */
+	@Column(length=30)
 	private String name;
-
-	@Email
-	@Column(nullable = false)
+	
+	/** The email. */
+	@Column(length=50)
 	private String email;
-
+	
+	/** The image url. */
+	@Column(name="imageurl",length=100)
 	private String imageUrl;
-
-	@Column(nullable = false)
-	private Boolean emailVerified = false;
-
-	@JsonIgnore
+	
+	/** The email verified. */
+	@Column(name="emailverified")
+	private boolean emailVerified;
+	
+	/** The password. */
+	@Column(length=50)
 	private String password;
-
-	@DecimalMax(value = "10")
-	@Column
-	private BigDecimal mobilenumber;
-
+	
+	/** The mobilenumber. */
+	@Column(length=10)
+	private String mobilenumber;
+	
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	private AuthProvider provider;
-
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+	
+	/** The provider id. */
+	@Column(name="providerid",length=100)
 	private String providerId;
-
-	@Column
-	private Roles roles;
-
-	@Column
-	private Date dob;
-
-	@Column(nullable = false)
+	
+	/** The firstname. */
+	@Column(length=50)
 	private String firstname;
-
-	@Column
+	
+	/** The middlename. */
+	@Column(length=50)
 	private String middlename;
-
-	@Column(nullable = false)
+	
+	/** The lastname. */
+	@Column(length=50)
 	private String lastname;
-
-	@Column(nullable = false)
-	private String displayname;
-
-	@Column(nullable = false)
-	private Timestamp createtime;
-
-	@Column(nullable = false)
-	private Timestamp updatetime;
-
-	@Column(nullable = false)
-	private Address paddress;
-
-	@Column(nullable = false)
-	private Address caddress;
-
-	public Long getId() {
-		return id;
+	
+	/** The dob. */
+	private Date dob;
+	
+	/** The createtime. */
+	@CreationTimestamp
+	@Column(nullable=false)
+	private LocalDateTime  createtime;
+	
+	/** The updatetime. */
+	@UpdateTimestamp
+	@Column(nullable=false)
+	private LocalDateTime  updatetime;
+	
+	/** The address. */
+	@OneToOne
+	private Address address;
+	
+	
+	/** The reffrencecode. */
+	@Column(length=50)
+	private String reffrencecode;
+	
+	/**
+	 * Instantiates a new users.
+	 */
+	public User()
+	{
+		
+	}
+	
+	/**
+	 * Instantiates a new users.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param imageUrl the image url
+	 * @param emailVerified the email verified
+	 * @param password the password
+	 * @param mobilenumber the mobilenumber
+	 * @param providerId the provider id
+	 * @param firstname the firstname
+	 * @param middlename the middlename
+	 * @param lastname the lastname
+	 * @param dob the dob
+	 * @param createtime the createtime
+	 * @param updatetime the updatetime
+	 * @param address the address
+	 * @param reffrencecode the reffrencecode
+	 */
+	public User(String name, String email, String imageUrl, boolean emailVerified, String password,
+			String mobilenumber, String providerId, String firstname, String middlename, String lastname, Date dob,
+			LocalDateTime createtime, LocalDateTime updatetime, Address address, String reffrencecode) {
+		super();
+		
+		this.name = name;
+		this.email = email;
+		this.imageUrl = imageUrl;
+		this.emailVerified = emailVerified;
+		this.password = password;
+		this.mobilenumber = mobilenumber;
+		this.providerId = providerId;
+		this.firstname = firstname;
+		this.middlename = middlename;
+		this.lastname = lastname;
+		this.dob = dob;
+		this.createtime = createtime;
+		this.updatetime = updatetime;
+		this.address = address;
+		this.reffrencecode = reffrencecode;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	/**
+	 * Instantiates a new users.
+	 *
+	 * @param iD the i D
+	 * @param name the name
+	 * @param email the email
+	 * @param imageUrl the image url
+	 * @param emailVerified the email verified
+	 * @param password the password
+	 * @param mobilenumber the mobilenumber
+	 * @param providerId the provider id
+	 * @param firstname the firstname
+	 * @param middlename the middlename
+	 * @param lastname the lastname
+	 * @param dob the dob
+	 * @param createtime the createtime
+	 * @param updatetime the updatetime
+	 * @param address the address
+	 * @param reffrencecode the reffrencecode
+	 */
+	public User(Long iD, String name, String email, String imageUrl, boolean emailVerified, String password,
+			String mobilenumber, String providerId, String firstname, String middlename, String lastname, Date dob,
+			LocalDateTime createtime, LocalDateTime updatetime, Address address, String reffrencecode) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.email = email;
+		this.imageUrl = imageUrl;
+		this.emailVerified = emailVerified;
+		this.password = password;
+		this.mobilenumber = mobilenumber;
+		this.providerId = providerId;
+		this.firstname = firstname;
+		this.middlename = middlename;
+		this.lastname = lastname;
+		this.dob = dob;
+		this.createtime = createtime;
+		this.updatetime = updatetime;
+		this.address = address;
+		this.reffrencecode = reffrencecode;
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
+	public Long getID() {
+		return ID;
+	}
+
+	/**
+	 * Sets the id.
+	 *
+	 * @param iD the new id
+	 */
+	public void setID(Long iD) {
+		ID = iD;
+	}
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email.
+	 *
+	 * @param email the new email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * Gets the image url.
+	 *
+	 * @return the image url
+	 */
 	public String getImageUrl() {
 		return imageUrl;
 	}
 
+	/**
+	 * Sets the image url.
+	 *
+	 * @param imageUrl the new image url
+	 */
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
-	public Boolean getEmailVerified() {
+	/**
+	 * Checks if is email verified.
+	 *
+	 * @return true, if is email verified
+	 */
+	public boolean isEmailVerified() {
 		return emailVerified;
 	}
 
-	public void setEmailVerified(Boolean emailVerified) {
+	/**
+	 * Sets the email verified.
+	 *
+	 * @param emailVerified the new email verified
+	 */
+	public void setEmailVerified(boolean emailVerified) {
 		this.emailVerified = emailVerified;
 	}
 
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-	public AuthProvider getProvider() {
-		return provider;
+	/**
+	 * Gets the mobilenumber.
+	 *
+	 * @return the mobilenumber
+	 */
+	public String getMobilenumber() {
+		return mobilenumber;
 	}
 
-	public void setProvider(AuthProvider provider) {
-		this.provider = provider;
+	/**
+	 * Sets the mobilenumber.
+	 *
+	 * @param mobilenumber the new mobilenumber
+	 */
+	public void setMobilenumber(String mobilenumber) {
+		this.mobilenumber = mobilenumber;
 	}
 
+	/**
+	 * Gets the provider id.
+	 *
+	 * @return the provider id
+	 */
 	public String getProviderId() {
 		return providerId;
 	}
 
+	/**
+	 * Sets the provider id.
+	 *
+	 * @param providerId the new provider id
+	 */
 	public void setProviderId(String providerId) {
 		this.providerId = providerId;
 	}
 
-	public BigDecimal getMobilenumber() {
-		return mobilenumber;
-	}
-
-	public void setMobilenumber(BigDecimal mobilenumber) {
-		this.mobilenumber = mobilenumber;
-	}
-
-	public Roles getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Roles roles) {
-		this.roles = roles;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
+	/**
+	 * Gets the firstname.
+	 *
+	 * @return the firstname
+	 */
 	public String getFirstname() {
 		return firstname;
 	}
 
+	/**
+	 * Sets the firstname.
+	 *
+	 * @param firstname the new firstname
+	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
+	/**
+	 * Gets the middlename.
+	 *
+	 * @return the middlename
+	 */
 	public String getMiddlename() {
 		return middlename;
 	}
 
+	/**
+	 * Sets the middlename.
+	 *
+	 * @param middlename the new middlename
+	 */
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
 
+	/**
+	 * Gets the lastname.
+	 *
+	 * @return the lastname
+	 */
 	public String getLastname() {
 		return lastname;
 	}
 
+	/**
+	 * Sets the lastname.
+	 *
+	 * @param lastname the new lastname
+	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
-	public String getDisplayname() {
-		return displayname;
+	/**
+	 * Gets the dob.
+	 *
+	 * @return the dob
+	 */
+	public Date getDob() {
+		return dob;
 	}
 
-	public void setDisplayname(String displayname) {
-		this.displayname = displayname;
+	/**
+	 * Sets the dob.
+	 *
+	 * @param dob the new dob
+	 */
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
-	public Timestamp getCreatetime() {
+	/**
+	 * Gets the createtime.
+	 *
+	 * @return the createtime
+	 */
+	public LocalDateTime getCreatetime() {
 		return createtime;
 	}
 
-	public void setCreatetime(Timestamp createtime) {
+	/**
+	 * Sets the createtime.
+	 *
+	 * @param createtime the new createtime
+	 */
+	public void setCreatetime(LocalDateTime createtime) {
 		this.createtime = createtime;
 	}
 
-	public Timestamp getUpdatetime() {
+	/**
+	 * Gets the updatetime.
+	 *
+	 * @return the updatetime
+	 */
+	public LocalDateTime getUpdatetime() {
 		return updatetime;
 	}
 
-	public void setUpdatetime(Timestamp updatetime) {
+	/**
+	 * Sets the updatetime.
+	 *
+	 * @param updatetime the new updatetime
+	 */
+	public void setUpdatetime(LocalDateTime updatetime) {
 		this.updatetime = updatetime;
 	}
 
-	public Address getPaddress() {
-		return paddress;
+	/**
+	 * Gets the address.
+	 *
+	 * @return the address
+	 */
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setPaddress(Address paddress) {
-		this.paddress = paddress;
+	/**
+	 * Sets the address.
+	 *
+	 * @param address the new address
+	 */
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	public Address getCaddress() {
-		return caddress;
+	/**
+	 * Gets the reffrencecode.
+	 *
+	 * @return the reffrencecode
+	 */
+	public String getReffrencecode() {
+		return reffrencecode;
 	}
 
-	public void setCaddress(Address caddress) {
-		this.caddress = caddress;
+	/**
+	 * Sets the reffrencecode.
+	 *
+	 * @param reffrencecode the new reffrencecode
+	 */
+	public void setReffrencecode(String reffrencecode) {
+		this.reffrencecode = reffrencecode;
 	}
+	
+	public AuthProvider getProvider() {
+        return provider;
+    }
 
+    public void setProvider(AuthProvider provider) {
+        this.provider = provider;
+    }
 }
