@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mb11.application.payload.ApiResponse;
-import com.mb11.application.service.sport.QntitySportAPIService;
+import com.mb11.application.service.sport.SportAPIService;
 
 @RestController
 @RequestMapping("/cricapi")
 public class QntitySportController {
 	
 	@Autowired
-	QntitySportAPIService sportAPIService;
+	SportAPIService sportAPIService;
 	
 	@GetMapping("/series")
 	public ResponseEntity<?> getSeries(Date toDate, Date fromDate){
