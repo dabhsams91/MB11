@@ -1,15 +1,10 @@
 package com.mb11.application.model.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -17,41 +12,30 @@ import javax.persistence.Table;
  * The Class UserInvitePlatformLink.
  */
 @Entity
-@Table(name="UserInvitePlatformLink")
+@Table(name = "UserInvitePlatformLink")
 public class UserInvitePlatformLink {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The minviteplatformid. */
-	@Column(nullable=false)
-	@ManyToMany
-	private List<MInvitePlatform> minviteplatformid=new ArrayList<>();
-	
-	/** The userid. */
-	@Column(nullable=false)
-	@OneToMany
-	private List<User> userid=new ArrayList<>();
-	
-	/**
-	 * Instantiates a new user invite platform link.
-	 */
-	public UserInvitePlatformLink()
-	{
-		
-	}
-	
+	@ManyToOne
+	@JoinColumn(name = "minviteplatformid", nullable = false)
+	private MInvitePlatform minviteplatformid;
+
+	@ManyToOne
+	@JoinColumn(name = "userid", nullable = false)
+	private User userid;
+
 	/**
 	 * Instantiates a new user invite platform link.
 	 *
 	 * @param minviteplatformid the minviteplatformid
-	 * @param userid the userid
+	 * @param userid            the userid
 	 */
-	public UserInvitePlatformLink(List<MInvitePlatform> minviteplatformid, List<User> userid) {
-		super();
-		
+	public UserInvitePlatformLink(MInvitePlatform minviteplatformid, User userid) {
 		this.minviteplatformid = minviteplatformid;
 		this.userid = userid;
 	}
@@ -59,13 +43,12 @@ public class UserInvitePlatformLink {
 	/**
 	 * Instantiates a new user invite platform link.
 	 *
-	 * @param iD the i D
+	 * @param iD                the i D
 	 * @param minviteplatformid the minviteplatformid
-	 * @param userid the userid
+	 * @param userid            the userid
 	 */
-	public UserInvitePlatformLink(Long iD, List<MInvitePlatform> minviteplatformid, List<User> userid) {
-		super();
-		ID = iD;
+	public UserInvitePlatformLink(Long id, MInvitePlatform minviteplatformid, User userid) {
+		ID = id;
 		this.minviteplatformid = minviteplatformid;
 		this.userid = userid;
 	}
@@ -93,7 +76,7 @@ public class UserInvitePlatformLink {
 	 *
 	 * @return the minviteplatformid
 	 */
-	public List<MInvitePlatform> getMinviteplatformid() {
+	public MInvitePlatform getMinviteplatformid() {
 		return minviteplatformid;
 	}
 
@@ -102,7 +85,7 @@ public class UserInvitePlatformLink {
 	 *
 	 * @param minviteplatformid the new minviteplatformid
 	 */
-	public void setMinviteplatformid(List<MInvitePlatform> minviteplatformid) {
+	public void setMinviteplatformid(MInvitePlatform minviteplatformid) {
 		this.minviteplatformid = minviteplatformid;
 	}
 
@@ -111,7 +94,7 @@ public class UserInvitePlatformLink {
 	 *
 	 * @return the userid
 	 */
-	public List<User> getUserid() {
+	public User getUserid() {
 		return userid;
 	}
 
@@ -120,10 +103,8 @@ public class UserInvitePlatformLink {
 	 *
 	 * @param userid the new userid
 	 */
-	public void setUserid(List<User> userid) {
+	public void setUserid(User userid) {
 		this.userid = userid;
 	}
 
-	
-	
 }

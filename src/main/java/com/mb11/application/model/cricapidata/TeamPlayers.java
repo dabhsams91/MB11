@@ -1,13 +1,11 @@
 package com.mb11.application.model.cricapidata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -15,67 +13,66 @@ import javax.persistence.Table;
  * The Class TeamPlayers.
  */
 @Entity
-@Table(name="TeamPlayers")
+@Table(name = "TeamPlayers")
 public class TeamPlayers {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The firstname. */
-	@Column(nullable = false,length=30)
+	@Column(nullable = false, length = 30)
 	private String firstname;
-	
+
 	/** The middlename. */
-	@Column(length=30)
+	@Column(length = 30)
 	private String middlename;
-	
+
 	/** The lastname. */
-	@Column(nullable = false,length=30)
+	@Column(nullable = false, length = 30)
 	private String lastname;
-	
+
 	/** The m team. */
-	@Column(nullable = false)
-	@OneToMany
-	private List<MTeam> mTeam=new ArrayList<>();
-	
+	@ManyToOne
+	@JoinColumn(name = "mteamid", nullable = false)
+	private MTeam mTeam;
+
 	/**
 	 * Instantiates a new team players.
 	 */
-	public TeamPlayers()
-	{
-		
-	}
-	
-	/**
-	 * Instantiates a new team players.
-	 *
-	 * @param firstname the firstname
-	 * @param middlename the middlename
-	 * @param lastname the lastname
-	 * @param mTeam the m team
-	 */
-	public TeamPlayers(String firstname, String middlename, String lastname, List<MTeam> mTeam) {
-		super();
-		
-		this.firstname = firstname;
-		this.middlename = middlename;
-		this.lastname = lastname;
-		this.mTeam = mTeam;
-	
+	public TeamPlayers() {
+
 	}
 
 	/**
 	 * Instantiates a new team players.
 	 *
-	 * @param iD the i D
-	 * @param firstname the firstname
+	 * @param firstname  the firstname
 	 * @param middlename the middlename
-	 * @param lastname the lastname
-	 * @param mTeam the m team
+	 * @param lastname   the lastname
+	 * @param mTeam      the m team
 	 */
-	public TeamPlayers(Long iD, String firstname, String middlename, String lastname, List<MTeam> mTeam) {
+	public TeamPlayers(String firstname, String middlename, String lastname, MTeam mTeam) {
+		super();
+
+		this.firstname = firstname;
+		this.middlename = middlename;
+		this.lastname = lastname;
+		this.mTeam = mTeam;
+
+	}
+
+	/**
+	 * Instantiates a new team players.
+	 *
+	 * @param iD         the i D
+	 * @param firstname  the firstname
+	 * @param middlename the middlename
+	 * @param lastname   the lastname
+	 * @param mTeam      the m team
+	 */
+	public TeamPlayers(Long iD, String firstname, String middlename, String lastname, MTeam mTeam) {
 		super();
 		ID = iD;
 		this.firstname = firstname;
@@ -161,7 +158,7 @@ public class TeamPlayers {
 	 *
 	 * @return the m team
 	 */
-	public List<MTeam> getmTeam() {
+	public MTeam getmTeam() {
 		return mTeam;
 	}
 
@@ -170,12 +167,8 @@ public class TeamPlayers {
 	 *
 	 * @param mTeam the new m team
 	 */
-	public void setmTeam(List<MTeam> mTeam) {
+	public void setmTeam(MTeam mTeam) {
 		this.mTeam = mTeam;
 	}
 
-	
-	
-
-	
 }

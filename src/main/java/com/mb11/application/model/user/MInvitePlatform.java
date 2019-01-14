@@ -11,45 +11,34 @@ import javax.persistence.Table;
  * The Class MInvitePlatform.
  */
 @Entity
-@Table(name="MInvitePlatform")
+@Table(name = "MInvitePlatform")
 public class MInvitePlatform {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The name. */
-	@Column(nullable=false,unique=true)
+	@Column(nullable = false, unique = true)
 	private String name;
-	
-	/**
-	 * Instantiates a new m invite platform.
-	 */
-	public MInvitePlatform()
-	{
-		
-	}
-	
+
 	/**
 	 * Instantiates a new m invite platform.
 	 *
 	 * @param name the name
 	 */
 	public MInvitePlatform(String name) {
-		super();
-		
 		this.name = name;
 	}
 
 	/**
 	 * Instantiates a new m invite platform.
 	 *
-	 * @param iD the i D
+	 * @param iD   the i D
 	 * @param name the name
 	 */
 	public MInvitePlatform(Long iD, String name) {
-		super();
 		ID = iD;
 		this.name = name;
 	}
@@ -89,9 +78,5 @@ public class MInvitePlatform {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
-	
-	
 
 }

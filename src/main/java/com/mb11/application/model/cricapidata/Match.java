@@ -1,13 +1,11 @@
 package com.mb11.application.model.cricapidata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -28,9 +26,9 @@ public class Match {
 	private String matchname;
 
 	/** The sid. */
-	@Column(nullable = false)
-	@OneToMany
-	private List<Series> sid = new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="sid", nullable=false)
+	private Series sid;
 
 	/**
 	 * Instantiates a new match.
@@ -45,7 +43,7 @@ public class Match {
 	 * @param matchname the matchname
 	 * @param sid       the sid
 	 */
-	public Match(String matchname, List<Series> sid) {
+	public Match(String matchname, Series sid) {
 		super();
 
 		this.matchname = matchname;
@@ -59,7 +57,7 @@ public class Match {
 	 * @param matchname the matchname
 	 * @param sid       the sid
 	 */
-	public Match(Long iD, String matchname, List<Series> sid) {
+	public Match(Long iD, String matchname, Series sid) {
 		super();
 		ID = iD;
 		this.matchname = matchname;
@@ -107,7 +105,7 @@ public class Match {
 	 *
 	 * @return the sid
 	 */
-	public List<Series> getSid() {
+	public Series getSid() {
 		return sid;
 	}
 
@@ -116,7 +114,7 @@ public class Match {
 	 *
 	 * @param sid the new sid
 	 */
-	public void setSid(List<Series> sid) {
+	public void setSid(Series sid) {
 		this.sid = sid;
 	}
 

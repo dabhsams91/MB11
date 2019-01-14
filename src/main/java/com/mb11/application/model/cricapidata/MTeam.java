@@ -1,9 +1,13 @@
 package com.mb11.application.model.cricapidata;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -11,49 +15,43 @@ import javax.persistence.Table;
  * The Class MTeam.
  */
 @Entity
-@Table(name="MTeam")
+@Table(name = "MTeam")
 public class MTeam {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	Long ID;
-	
+
 	/** The teamname. */
-	@Column(nullable = false,unique = true)
+	@Column(nullable = false, unique = true)
 	String teamname;
-	
-	
+
 	/** The sporttype. */
 	@Column(nullable = false)
 	Sporttype sporttype;
-	
-	/**
-	 * Instantiates a new m team.
-	 */
-	public MTeam() {
-	
-		
-	}
-	
+
+	@ManyToMany(mappedBy = "mTeams")
+	private Set<Series> series = new HashSet<>();
+
 	/**
 	 * Instantiates a new m team.
 	 *
-	 * @param teamname the teamname
+	 * @param teamname  the teamname
 	 * @param sporttype the sporttype
 	 */
 	public MTeam(String teamname, Sporttype sporttype) {
 		super();
-		
+
 		this.teamname = teamname;
 		this.sporttype = sporttype;
 	}
-	
+
 	/**
 	 * Instantiates a new m team.
 	 *
-	 * @param iD the i D
-	 * @param teamname the teamname
+	 * @param iD        the i D
+	 * @param teamname  the teamname
 	 * @param sporttype the sporttype
 	 */
 	public MTeam(Long iD, String teamname, Sporttype sporttype) {
@@ -116,10 +114,13 @@ public class MTeam {
 	public void setSporttype(Sporttype sporttype) {
 		this.sporttype = sporttype;
 	}
-	
-	
-	
-	
-	  
+
+	public Set<Series> getSeries() {
+		return series;
+	}
+
+	public void setSeries(Set<Series> series) {
+		this.series = series;
+	}
 
 }

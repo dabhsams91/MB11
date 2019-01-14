@@ -1,12 +1,10 @@
 package com.mb11.application.model.cricapidata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -14,38 +12,32 @@ import javax.persistence.Table;
  * The Class PlayerCredit.
  */
 @Entity
-@Table(name="PlayerCredit")
+@Table(name = "PlayerCredit")
 public class PlayerCredit {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The credit. */
 	private float credit;
-	
+
 	/** The vseries teamplayerid. */
-	@OneToMany
-	private List<SeriesTeamPlayer> vseriesTeamplayerid=new ArrayList<>();
-	
-	/**
-	 * Instantiates a new player credit.
-	 */
-	public PlayerCredit()
-	{
-		
-	}
-	
+	/** The sid. */
+	@ManyToOne
+	@JoinColumn(name = "seriesteamplayerid", nullable = false)
+	private SeriesTeamPlayer vseriesTeamplayerid;
+
 	/**
 	 * Instantiates a new player credit.
 	 *
-	 * @param credit the credit
+	 * @param credit              the credit
 	 * @param vseriesTeamplayerid the vseries teamplayerid
 	 */
-	public PlayerCredit(float credit, List<SeriesTeamPlayer> vseriesTeamplayerid) {
+	public PlayerCredit(float credit, SeriesTeamPlayer vseriesTeamplayerid) {
 		super();
-		
+
 		this.credit = credit;
 		this.vseriesTeamplayerid = vseriesTeamplayerid;
 	}
@@ -53,11 +45,11 @@ public class PlayerCredit {
 	/**
 	 * Instantiates a new player credit.
 	 *
-	 * @param iD the i D
-	 * @param credit the credit
+	 * @param iD                  the i D
+	 * @param credit              the credit
 	 * @param vseriesTeamplayerid the vseries teamplayerid
 	 */
-	public PlayerCredit(Long iD, float credit, List<SeriesTeamPlayer> vseriesTeamplayerid) {
+	public PlayerCredit(Long iD, float credit, SeriesTeamPlayer vseriesTeamplayerid) {
 		super();
 		ID = iD;
 		this.credit = credit;
@@ -105,7 +97,7 @@ public class PlayerCredit {
 	 *
 	 * @return the vseries teamplayerid
 	 */
-	public List<SeriesTeamPlayer> getVseriesTeamplayerid() {
+	public SeriesTeamPlayer getVseriesTeamplayerid() {
 		return vseriesTeamplayerid;
 	}
 
@@ -114,11 +106,8 @@ public class PlayerCredit {
 	 *
 	 * @param vseriesTeamplayerid the new vseries teamplayerid
 	 */
-	public void setVseriesTeamplayerid(List<SeriesTeamPlayer> vseriesTeamplayerid) {
+	public void setVseriesTeamplayerid(SeriesTeamPlayer vseriesTeamplayerid) {
 		this.vseriesTeamplayerid = vseriesTeamplayerid;
 	}
-	
-	
-
 
 }

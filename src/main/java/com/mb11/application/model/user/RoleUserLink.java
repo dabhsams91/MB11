@@ -1,49 +1,35 @@
 package com.mb11.application.model.user;
 
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class RoleUserLink.
  */
 @Entity
-@Table(name="RoleUserLink")
+@Table(name = "RoleUserLink")
 public class RoleUserLink {
-	
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The userid. */
-	@Column(nullable=false)
-	@OneToMany
-	private List<User> userid=new ArrayList<>();
-	
+	@ManyToOne
+	@JoinColumn(name = "userid", nullable = false)
+	private User userid;
+
 	/** The roleid. */
-	@Column(nullable=false)
-	@OneToMany
-	private List<Roles> roleid=new ArrayList<>();
-	 
-	/**
-	 * Instantiates a new role user link.
-	 */
-	public RoleUserLink(){
-		 
-	 }
+	@ManyToOne
+	@JoinColumn(name = "roleid", nullable = false)
+	private Roles roleid;
+
 	
 	/**
 	 * Instantiates a new role user link.
@@ -51,9 +37,7 @@ public class RoleUserLink {
 	 * @param userid the userid
 	 * @param roleid the roleid
 	 */
-	public RoleUserLink(List<User> userid, List<Roles> roleid) {
-		super();
-		
+	public RoleUserLink(User userid, Roles roleid) {
 		this.userid = userid;
 		this.roleid = roleid;
 	}
@@ -61,13 +45,12 @@ public class RoleUserLink {
 	/**
 	 * Instantiates a new role user link.
 	 *
-	 * @param iD the i D
+	 * @param iD     the i D
 	 * @param userid the userid
 	 * @param roleid the roleid
 	 */
-	public RoleUserLink(Long iD, List<User> userid, List<Roles> roleid) {
-		super();
-		ID = iD;
+	public RoleUserLink(Long id, User userid, Roles roleid) {
+
 		this.userid = userid;
 		this.roleid = roleid;
 	}
@@ -95,7 +78,7 @@ public class RoleUserLink {
 	 *
 	 * @return the userid
 	 */
-	public List<User> getUserid() {
+	public User getUserid() {
 		return userid;
 	}
 
@@ -104,7 +87,7 @@ public class RoleUserLink {
 	 *
 	 * @param userid the new userid
 	 */
-	public void setUserid(List<User> userid) {
+	public void setUserid(User userid) {
 		this.userid = userid;
 	}
 
@@ -113,7 +96,7 @@ public class RoleUserLink {
 	 *
 	 * @return the roleid
 	 */
-	public List<Roles> getRoleid() {
+	public Roles getRoleid() {
 		return roleid;
 	}
 
@@ -122,13 +105,8 @@ public class RoleUserLink {
 	 *
 	 * @param roleid the new roleid
 	 */
-	public void setRoleid(List<Roles> roleid) {
+	public void setRoleid(Roles roleid) {
 		this.roleid = roleid;
 	}
-
-	
-	
-	
-	
 
 }

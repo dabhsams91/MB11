@@ -1,12 +1,10 @@
 package com.mb11.application.model.cricapidata;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -23,12 +21,14 @@ public class SeriesTeamPlayer {
 	private Long ID;
 	
 	/** The sid. */
-	@ManyToMany
-	private List<Series> sid=new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="sid", nullable=false)
+	private Series sid;
 	
 	/** The tpid. */
-	@ManyToMany
-	private List<TeamPlayers> tpid=new ArrayList<>();
+	@ManyToOne
+	@JoinColumn(name="tpid", nullable=false)
+	private TeamPlayers tpid;
 	
 	/**
 	 * Instantiates a new series team player.
@@ -44,7 +44,7 @@ public class SeriesTeamPlayer {
 	 * @param sid the sid
 	 * @param tpid the tpid
 	 */
-	public SeriesTeamPlayer(List<Series> sid, List<TeamPlayers> tpid) {
+	public SeriesTeamPlayer(Series sid, TeamPlayers tpid) {
 		super();
 		
 		this.sid = sid;
@@ -58,7 +58,7 @@ public class SeriesTeamPlayer {
 	 * @param sid the sid
 	 * @param tpid the tpid
 	 */
-	public SeriesTeamPlayer(Long iD, List<Series> sid, List<TeamPlayers> tpid) {
+	public SeriesTeamPlayer(Long iD, Series sid, TeamPlayers tpid) {
 		super();
 		ID = iD;
 		this.sid = sid;
@@ -88,7 +88,7 @@ public class SeriesTeamPlayer {
 	 *
 	 * @return the sid
 	 */
-	public List<Series> getSid() {
+	public Series getSid() {
 		return sid;
 	}
 
@@ -97,7 +97,7 @@ public class SeriesTeamPlayer {
 	 *
 	 * @param sid the new sid
 	 */
-	public void setSid(List<Series> sid) {
+	public void setSid(Series sid) {
 		this.sid = sid;
 	}
 
@@ -106,7 +106,7 @@ public class SeriesTeamPlayer {
 	 *
 	 * @return the tpid
 	 */
-	public List<TeamPlayers> getTpid() {
+	public TeamPlayers getTpid() {
 		return tpid;
 	}
 
@@ -115,7 +115,7 @@ public class SeriesTeamPlayer {
 	 *
 	 * @param tpid the new tpid
 	 */
-	public void setTpid(List<TeamPlayers> tpid) {
+	public void setTpid(TeamPlayers tpid) {
 		this.tpid = tpid;
 	}
 

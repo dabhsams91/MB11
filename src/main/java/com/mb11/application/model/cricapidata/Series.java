@@ -1,12 +1,18 @@
 package com.mb11.application.model.cricapidata;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -47,6 +53,11 @@ public class Series {
 
 	@Column(nullable = false)
 	private Boolean status;
+
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "SeriesTeamLink", joinColumns = { @JoinColumn(name = "sid") }, inverseJoinColumns = {
+			@JoinColumn(name = "mteamid") })
+	Set<MTeam> mTeams = new HashSet<>();
 
 	/**
 	 * Instantiates a new series.
@@ -214,6 +225,14 @@ public class Series {
 
 	public void setStatus(Boolean status) {
 		this.status = status;
+	}
+
+	public Set<MTeam> getmTeams() {
+		return mTeams;
+	}
+
+	public void setmTeams(Set<MTeam> mTeams) {
+		this.mTeams = mTeams;
 	}
 
 }
