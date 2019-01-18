@@ -137,16 +137,16 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		User userOptional = usersService.findByEmail(oAuth2UserInfo.getEmail());
 
 		User user = null;
-		if(user!=null) {
+		if (user != null) {
 			if (!userOptional.getProvider()
 					.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
 				throw new AuthenticationProcessingException(
 						"Looks like you're signed up with " + userOptional.getProvider() + " account. Please use your "
 								+ userOptional.getProvider() + " account to login.");
-			}else {
+			} else {
 				user = updateExistingUser(userOptional, oAuth2UserInfo);
-			}	
-		}else {
+			}
+		} else {
 			user = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
 		}
 		return UserPrincipal.create(user, oAuth2User.getAttributes());
@@ -160,7 +160,7 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		user.setName(oAuth2UserInfo.getName());
 		user.setEmail(oAuth2UserInfo.getEmail());
 		user.setImageUrl(oAuth2UserInfo.getImageUrl());
-		
+
 		user.setMobilenumber("0000000000");
 		return usersService.addUsers(user);
 	}

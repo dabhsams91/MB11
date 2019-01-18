@@ -15,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 import com.mb11.application.security.CustomUserDetailsService;
 import com.mb11.application.security.RestAuthenticationEntryPoint;
 import com.mb11.application.security.TokenAuthenticationFilter;
@@ -43,6 +42,7 @@ public class MB11SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private HttpCookieAuthRequestRepository cookieAuthRequestRepository;
+    
     
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -122,6 +122,6 @@ public class MB11SecurityConfig extends WebSecurityConfigurerAdapter {
                     .failureHandler(authenticationFailureHandler);
 
         // Add our custom Token based authentication filter
-        //http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }

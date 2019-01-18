@@ -1,6 +1,7 @@
 package com.mb11.application.model.user;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,7 +9,11 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,111 +28,113 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Class Users.
  */
 @Entity
-@Table(name="Users")
+@Table(name = "Users")
 public class User {
-	
+
 	/** The id. */
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long ID;
-	
+
 	/** The name. */
-	@Column(length=30)
+	@Column(length = 30)
 	private String name;
-	
+
 	/** The email. */
-	@Column(length=50)
+	@Column(length = 50)
 	private String email;
-	
+
 	private String imageUrl;
-	
+
 	/** The email verified. */
-	@Column(name="emailverified")
+	@Column(name = "emailverified")
 	private boolean emailVerified;
-	
+
 	/** The password. */
-	@Column(length=50)
+	@Column(length = 50)
 	@JsonIgnore
 	private String password;
-	
+
 	/** The mobilenumber. */
-	@Column(length=10)
+	@Column(length = 10)
 	private String mobilenumber;
-	
+
 	@NotNull
-    @Enumerated(EnumType.STRING)
-    private AuthProvider provider;
-	
+	@Enumerated(EnumType.STRING)
+	private AuthProvider provider;
+
 	/** The provider id. */
-	@Column(name="providerid",length=100)
+	@Column(name = "providerid", length = 100)
 	private String providerId;
-	
+
 	/** The firstname. */
-	@Column(length=50)
+	@Column(length = 50)
 	private String firstname;
-	
+
 	/** The middlename. */
-	@Column(length=50)
+	@Column(length = 50)
 	private String middlename;
-	
+
 	/** The lastname. */
-	@Column(length=50)
+	@Column(length = 50)
 	private String lastname;
-	
+
 	/** The dob. */
 	private Date dob;
-	
+
 	/** The createtime. */
 	@CreationTimestamp
-	@Column(nullable=false)
-	private LocalDateTime  createtime;
-	
+	@Column(nullable = false)
+	private LocalDateTime createtime;
+
 	/** The updatetime. */
 	@UpdateTimestamp
-	@Column(nullable=false)
-	private LocalDateTime  updatetime;
-	
+	@Column(nullable = false)
+	private LocalDateTime updatetime;
+
 	/** The address. */
 	@OneToOne
 	private Address address;
-	
-	
+
 	/** The reffrencecode. */
-	@Column(length=50)
+	@Column(length = 50)
 	private String reffrencecode;
-	
+
+	@ManyToMany
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "ID"))
+	private Collection<Role> roles;
+
 	/**
 	 * Instantiates a new users.
 	 */
-	public User()
-	{
-		
+	public User() {
+
 	}
-	
+
 	/**
 	 * Instantiates a new users.
 	 *
-	 * @param name the name
-	 * @param email the email
-	 * @param imageUrl the image url
+	 * @param name          the name
+	 * @param email         the email
+	 * @param imageUrl      the image url
 	 * @param emailVerified the email verified
-	 * @param password the password
-	 * @param mobilenumber the mobilenumber
-	 * @param providerId the provider id
-	 * @param firstname the firstname
-	 * @param middlename the middlename
-	 * @param lastname the lastname
-	 * @param dob the dob
-	 * @param createtime the createtime
-	 * @param updatetime the updatetime
-	 * @param address the address
+	 * @param password      the password
+	 * @param mobilenumber  the mobilenumber
+	 * @param providerId    the provider id
+	 * @param firstname     the firstname
+	 * @param middlename    the middlename
+	 * @param lastname      the lastname
+	 * @param dob           the dob
+	 * @param createtime    the createtime
+	 * @param updatetime    the updatetime
+	 * @param address       the address
 	 * @param reffrencecode the reffrencecode
 	 */
-	public User(String name, String email, String imageUrl, boolean emailVerified, String password,
-			String mobilenumber, String providerId, String firstname, String middlename, String lastname, Date dob,
-			LocalDateTime createtime, LocalDateTime updatetime, Address address, String reffrencecode) {
+	public User(String name, String email, String imageUrl, boolean emailVerified, String password, String mobilenumber,
+			String providerId, String firstname, String middlename, String lastname, Date dob, LocalDateTime createtime,
+			LocalDateTime updatetime, Address address, String reffrencecode) {
 		super();
-		
+
 		this.name = name;
 		this.email = email;
 		this.imageUrl = imageUrl;
@@ -148,21 +155,21 @@ public class User {
 	/**
 	 * Instantiates a new users.
 	 *
-	 * @param iD the i D
-	 * @param name the name
-	 * @param email the email
-	 * @param imageUrl the image url
+	 * @param iD            the i D
+	 * @param name          the name
+	 * @param email         the email
+	 * @param imageUrl      the image url
 	 * @param emailVerified the email verified
-	 * @param password the password
-	 * @param mobilenumber the mobilenumber
-	 * @param providerId the provider id
-	 * @param firstname the firstname
-	 * @param middlename the middlename
-	 * @param lastname the lastname
-	 * @param dob the dob
-	 * @param createtime the createtime
-	 * @param updatetime the updatetime
-	 * @param address the address
+	 * @param password      the password
+	 * @param mobilenumber  the mobilenumber
+	 * @param providerId    the provider id
+	 * @param firstname     the firstname
+	 * @param middlename    the middlename
+	 * @param lastname      the lastname
+	 * @param dob           the dob
+	 * @param createtime    the createtime
+	 * @param updatetime    the updatetime
+	 * @param address       the address
 	 * @param reffrencecode the reffrencecode
 	 */
 	public User(Long iD, String name, String email, String imageUrl, boolean emailVerified, String password,
@@ -474,12 +481,21 @@ public class User {
 	public void setReffrencecode(String reffrencecode) {
 		this.reffrencecode = reffrencecode;
 	}
-	
-	public AuthProvider getProvider() {
-        return provider;
-    }
 
-    public void setProvider(AuthProvider provider) {
-        this.provider = provider;
-    }
+	public AuthProvider getProvider() {
+		return provider;
+	}
+
+	public void setProvider(AuthProvider provider) {
+		this.provider = provider;
+	}
+
+	public Collection<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
+	}
+
 }
