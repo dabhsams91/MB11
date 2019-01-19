@@ -51,7 +51,7 @@ public class User {
 	private boolean emailVerified;
 
 	/** The password. */
-	@Column(length = 50)
+	@Column(length = 100)
 	@JsonIgnore
 	private String password;
 

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import com.mb11.application.dao.user.PrivilegeRepository;
 import com.mb11.application.dao.user.RoleRepository;
 import com.mb11.application.dao.user.UserRepository;
+import com.mb11.application.model.user.AuthProvider;
 import com.mb11.application.model.user.Privilege;
 import com.mb11.application.model.user.Role;
 import com.mb11.application.model.user.User;
@@ -42,7 +43,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		if (alreadySetup)
 			return;
 
-		/*Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+		Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
 		Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
@@ -54,8 +55,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		user.setPassword(passwordEncoder.encode("test"));
 		user.setEmail("test@test.com");
 		user.setRoles(Arrays.asList(adminRole));
+		user.setProvider(AuthProvider.local);
+		user.setProviderId("local");
 		userRepository.save(user);
-		alreadySetup = true;*/
+		alreadySetup = true;
 	}
 
 	@Transactional
