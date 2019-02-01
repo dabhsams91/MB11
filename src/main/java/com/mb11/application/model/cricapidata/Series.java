@@ -36,8 +36,14 @@ public class Series {
 	private String seriesId;
 
 	/** The sname. */
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String sname;
+	
+	@Column(nullable = false, length = 100)
+	private String short_name;
+	
+	@Column(nullable = false, length = 30)
+	private String category;
 
 	/** The startdate. */
 	@Column(nullable = false)
@@ -50,6 +56,9 @@ public class Series {
 	/** The totalmatch. */
 	@Column(nullable = false)
 	private int totalmatch;
+	
+	@Column(nullable = false)
+	private int totalteams;
 
 	@Column(nullable = false)
 	private Boolean status;
@@ -59,164 +68,114 @@ public class Series {
 			@JoinColumn(name = "mteamid") })
 	Set<MTeam> mTeams = new HashSet<>();
 
-	/**
-	 * Instantiates a new series.
-	 *
-	 * @param seriesId   the series id
-	 * @param sname      the sname
-	 * @param startdate  the startdate
-	 * @param enddate    the enddate
-	 * @param totalmatch the totalmatch
-	 */
-	public Series(String seriesId, String sname, Date startdate, Date enddate, int totalmatch, Boolean status) {
-
-		this.seriesId = seriesId;
-		this.sname = sname;
-		this.startdate = startdate;
-		this.enddate = enddate;
-		this.totalmatch = totalmatch;
-		this.status = status;
+	public Series() {
+	
 	}
 
-	/**
-	 * Instantiates a new series.
-	 *
-	 * @param iD         the i D
-	 * @param seriesId   the series id
-	 * @param sname      the sname
-	 * @param startdate  the startdate
-	 * @param enddate    the enddate
-	 * @param totalmatch the totalmatch
-	 */
-	public Series(long id, String seriesId, String sname, Date startdate, Date enddate, int totalmatch,
-			Boolean status) {
+	
+	
+	public Series(@NotNull String seriesId, String sname, String short_name, String category, Date startdate,
+			Date enddate, int totalmatch, int totalteams,Boolean status) {
 		super();
-		ID = id;
 		this.seriesId = seriesId;
 		this.sname = sname;
+		this.short_name = short_name;
+		this.category = category;
 		this.startdate = startdate;
 		this.enddate = enddate;
 		this.totalmatch = totalmatch;
-		this.status = status;
+		this.totalteams = totalteams;
+		this.status=status;
+		
 	}
+	
+	public Series(@NotNull String seriesId, String sname, String short_name, String category, Date startdate,
+			Date enddate, int totalmatch, int totalteams, Boolean status, Set<MTeam> mTeams) {
+		super();
+		this.seriesId = seriesId;
+		this.sname = sname;
+		this.short_name = short_name;
+		this.category = category;
+		this.startdate = startdate;
+		this.enddate = enddate;
+		this.totalmatch = totalmatch;
+		this.totalteams = totalteams;
+		this.status = status;
+		this.mTeams = mTeams;
+	}
+	
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
+
 	public long getID() {
 		return ID;
 	}
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param iD the new id
-	 */
 	public void setID(long iD) {
 		ID = iD;
 	}
 
-	/**
-	 * Gets the series id.
-	 *
-	 * @return the series id
-	 */
 	public String getSeriesId() {
 		return seriesId;
 	}
 
-	/**
-	 * Sets the series id.
-	 *
-	 * @param seriesId the new series id
-	 */
 	public void setSeriesId(String seriesId) {
 		this.seriesId = seriesId;
 	}
 
-	/**
-	 * Gets the sname.
-	 *
-	 * @return the sname
-	 */
 	public String getSname() {
 		return sname;
 	}
 
-	/**
-	 * Sets the sname.
-	 *
-	 * @param sname the new sname
-	 */
 	public void setSname(String sname) {
 		this.sname = sname;
 	}
 
-	/**
-	 * Gets the startdate.
-	 *
-	 * @return the startdate
-	 */
+	public String getShort_name() {
+		return short_name;
+	}
+
+	public void setShort_name(String short_name) {
+		this.short_name = short_name;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public Date getStartdate() {
 		return startdate;
 	}
 
-	/**
-	 * Sets the startdate.
-	 *
-	 * @param startdate the new startdate
-	 */
 	public void setStartdate(Date startdate) {
 		this.startdate = startdate;
 	}
 
-	/**
-	 * Gets the enddate.
-	 *
-	 * @return the enddate
-	 */
 	public Date getEnddate() {
 		return enddate;
 	}
 
-	/**
-	 * Sets the enddate.
-	 *
-	 * @param enddate the new enddate
-	 */
 	public void setEnddate(Date enddate) {
 		this.enddate = enddate;
 	}
 
-	/**
-	 * Gets the totalmatch.
-	 *
-	 * @return the totalmatch
-	 */
 	public int getTotalmatch() {
 		return totalmatch;
 	}
 
-	/**
-	 * Sets the totalmatch.
-	 *
-	 * @param totalmatch the new totalmatch
-	 */
 	public void setTotalmatch(int totalmatch) {
 		this.totalmatch = totalmatch;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return "Series [ID=" + ID + ", seriesId=" + seriesId + ", sname=" + sname + ", startdate=" + startdate
-				+ ", enddate=" + enddate + ", totalmatch=" + totalmatch + "]";
+	public int getTotalteams() {
+		return totalteams;
+	}
+
+	public void setTotalteams(int totalteams) {
+		this.totalteams = totalteams;
 	}
 
 	public Boolean getStatus() {
@@ -235,4 +194,14 @@ public class Series {
 		this.mTeams = mTeams;
 	}
 
+	@Override
+	public String toString() {
+		return "Series [ID=" + ID + ", seriesId=" + seriesId + ", sname=" + sname + ", short_name=" + short_name
+				+ ", category=" + category + ", startdate=" + startdate + ", enddate=" + enddate + ", totalmatch="
+				+ totalmatch + ", totalteams=" + totalteams + ", status=" + status + ", mTeams=" + mTeams + "]";
+	}
+	
+	
+
+	
 }

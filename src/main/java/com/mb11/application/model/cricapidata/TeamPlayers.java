@@ -20,6 +20,9 @@ public class TeamPlayers {
 	@Id
 	@GeneratedValue
 	private Long ID;
+	
+	@Column(nullable = false)
+	private Long player_id;
 
 	/** The firstname. */
 	@Column(nullable = false, length = 30)
@@ -45,130 +48,70 @@ public class TeamPlayers {
 
 	}
 
-	/**
-	 * Instantiates a new team players.
-	 *
-	 * @param firstname  the firstname
-	 * @param middlename the middlename
-	 * @param lastname   the lastname
-	 * @param mTeam      the m team
-	 */
-	public TeamPlayers(String firstname, String middlename, String lastname, MTeam mTeam) {
+	public TeamPlayers(Long player_id, String firstname, String middlename, String lastname, MTeam mTeam) {
 		super();
-
-		this.firstname = firstname;
-		this.middlename = middlename;
-		this.lastname = lastname;
-		this.mTeam = mTeam;
-
-	}
-
-	/**
-	 * Instantiates a new team players.
-	 *
-	 * @param iD         the i D
-	 * @param firstname  the firstname
-	 * @param middlename the middlename
-	 * @param lastname   the lastname
-	 * @param mTeam      the m team
-	 */
-	public TeamPlayers(Long iD, String firstname, String middlename, String lastname, MTeam mTeam) {
-		super();
-		ID = iD;
+		this.player_id = player_id;
 		this.firstname = firstname;
 		this.middlename = middlename;
 		this.lastname = lastname;
 		this.mTeam = mTeam;
 	}
 
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
 	public Long getID() {
 		return ID;
 	}
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param iD the new id
-	 */
 	public void setID(Long iD) {
 		ID = iD;
 	}
 
-	/**
-	 * Gets the firstname.
-	 *
-	 * @return the firstname
-	 */
+	public Long getPlayer_id() {
+		return player_id;
+	}
+
+	public void setPlayer_id(Long player_id) {
+		this.player_id = player_id;
+	}
+
 	public String getFirstname() {
 		return firstname;
 	}
 
-	/**
-	 * Sets the firstname.
-	 *
-	 * @param firstname the new firstname
-	 */
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
 
-	/**
-	 * Gets the middlename.
-	 *
-	 * @return the middlename
-	 */
 	public String getMiddlename() {
 		return middlename;
 	}
 
-	/**
-	 * Sets the middlename.
-	 *
-	 * @param middlename the new middlename
-	 */
 	public void setMiddlename(String middlename) {
 		this.middlename = middlename;
 	}
 
-	/**
-	 * Gets the lastname.
-	 *
-	 * @return the lastname
-	 */
 	public String getLastname() {
 		return lastname;
 	}
 
-	/**
-	 * Sets the lastname.
-	 *
-	 * @param lastname the new lastname
-	 */
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
 
-	/**
-	 * Gets the m team.
-	 *
-	 * @return the m team
-	 */
 	public MTeam getmTeam() {
 		return mTeam;
 	}
 
-	/**
-	 * Sets the m team.
-	 *
-	 * @param mTeam the new m team
-	 */
 	public void setmTeam(MTeam mTeam) {
 		this.mTeam = mTeam;
 	}
 
+	@Override
+	public String toString() {
+		return "TeamPlayers [ID=" + ID + ", player_id=" + player_id + ", firstname=" + firstname + ", middlename="
+				+ middlename + ", lastname=" + lastname + ", mTeam=" + mTeam + "]";
+	}
+
+
+	
+	
 }

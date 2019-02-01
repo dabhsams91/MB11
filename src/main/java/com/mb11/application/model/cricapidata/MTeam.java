@@ -21,96 +21,102 @@ public class MTeam {
 	/** The id. */
 	@Id
 	@GeneratedValue
-	Long ID;
+	private Long ID;
+	
+	@Column(nullable = false)
+	private Long teamid;
 
 	/** The teamname. */
-	@Column(nullable = false, unique = true)
-	String teamname;
-
+	//@Column(nullable = false, unique = true)
+	@Column(nullable = false)
+	private String teamname;
+	
+	@Column(nullable = false,length=30)
+	private String teamabbr;
+	
+	@Column(nullable = false)
+	private String logo_url;
+	
+	@Column(nullable = false,length=10)
+	private String sex;
+	
 	/** The sporttype. */
 	@Column(nullable = false)
-	Sporttype sporttype;
+	private Sporttype sporttype;
 
 	@ManyToMany(mappedBy = "mTeams")
 	private Set<Series> series = new HashSet<>();
 
-	/**
-	 * Instantiates a new m team.
-	 *
-	 * @param teamname  the teamname
-	 * @param sporttype the sporttype
-	 */
-	public MTeam(String teamname, Sporttype sporttype) {
-		super();
+	public MTeam() {
+		
+	}
+	
+	
 
+	public MTeam(Long teamid, String teamname, String teamabbr, String logo_url, String sex, Sporttype sporttype,
+			Set<Series> series) {
+		super();
+		this.teamid = teamid;
 		this.teamname = teamname;
+		this.teamabbr = teamabbr;
+		this.logo_url = logo_url;
+		this.sex = sex;
 		this.sporttype = sporttype;
+		this.series = series;
 	}
 
-	/**
-	 * Instantiates a new m team.
-	 *
-	 * @param iD        the i D
-	 * @param teamname  the teamname
-	 * @param sporttype the sporttype
-	 */
-	public MTeam(Long iD, String teamname, Sporttype sporttype) {
-		super();
-		ID = iD;
-		this.teamname = teamname;
-		this.sporttype = sporttype;
-	}
-
-	/**
-	 * Gets the id.
-	 *
-	 * @return the id
-	 */
 	public Long getID() {
 		return ID;
 	}
 
-	/**
-	 * Sets the id.
-	 *
-	 * @param iD the new id
-	 */
 	public void setID(Long iD) {
 		ID = iD;
 	}
 
-	/**
-	 * Gets the teamname.
-	 *
-	 * @return the teamname
-	 */
+	public Long getTeamid() {
+		return teamid;
+	}
+
+	public void setTeamid(Long teamid) {
+		this.teamid = teamid;
+	}
+
 	public String getTeamname() {
 		return teamname;
 	}
 
-	/**
-	 * Sets the teamname.
-	 *
-	 * @param teamname the new teamname
-	 */
 	public void setTeamname(String teamname) {
 		this.teamname = teamname;
 	}
 
-	/**
-	 * Gets the sporttype.
-	 *
-	 * @return the sporttype
-	 */
+	public String getTeamabbr() {
+		return teamabbr;
+	}
+
+	public void setTeamabbr(String teamabbr) {
+		this.teamabbr = teamabbr;
+	}
+
+	public String getLogo_url() {
+		return logo_url;
+	}
+
+	public void setLogo_url(String logo_url) {
+		this.logo_url = logo_url;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
 	public Sporttype getSporttype() {
 		return sporttype;
 	}
 
-	/**
-	 * Sets the sporttype.
-	 *
-	 * @param sporttype the new sporttype
-	 */
 	public void setSporttype(Sporttype sporttype) {
 		this.sporttype = sporttype;
 	}
@@ -122,5 +128,15 @@ public class MTeam {
 	public void setSeries(Set<Series> series) {
 		this.series = series;
 	}
+
+	@Override
+	public String toString() {
+		return "MTeam [ID=" + ID + ", teamid=" + teamid + ", teamname=" + teamname + ", teamabbr=" + teamabbr
+				+ ", logo_url=" + logo_url + ", sex=" + sex + ", sporttype=" + sporttype + ", series=" + series + "]";
+	}
+	
+	
+
+	
 
 }
