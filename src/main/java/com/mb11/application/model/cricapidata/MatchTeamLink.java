@@ -27,17 +27,11 @@ public class MatchTeamLink {
 
 	/** The sid. */
 	@ManyToOne
-	@JoinColumn(name = "sid", nullable = false)
-	private Series sid;
-
-	/** The sid. */
-	@ManyToOne
 	@JoinColumn(name = "teamid", nullable = false)
 	private MTeam teamid;
 
-	public MatchTeamLink(Match matchid, Series sid, MTeam teamid) {
+	public MatchTeamLink(Match matchid, MTeam teamid) {
 		this.matchid = matchid;
-		this.sid = sid;
 		this.teamid = teamid;
 	}
 
@@ -48,11 +42,14 @@ public class MatchTeamLink {
 	 * @param mid              the mid
 	 * @param seriesteamlinkid the seriesteamlinkid
 	 */
-	public MatchTeamLink(Long iD, Match matchid, Series sid, MTeam teamid) {
+	public MatchTeamLink(Long iD, Match matchid, MTeam teamid) {
 		ID = iD;
 		this.matchid = matchid;
-		this.sid = sid;
 		this.teamid = teamid;
+	}
+
+	public MatchTeamLink() {
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -79,14 +76,6 @@ public class MatchTeamLink {
 
 	public void setMatchid(Match matchid) {
 		this.matchid = matchid;
-	}
-
-	public Series getSid() {
-		return sid;
-	}
-
-	public void setSid(Series sid) {
-		this.sid = sid;
 	}
 
 	public MTeam getTeamid() {

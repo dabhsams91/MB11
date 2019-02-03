@@ -290,5 +290,5 @@ public class EntitySportAPIService {
 		return lTeamPlayers;
 
 	}
-
+	
 }
