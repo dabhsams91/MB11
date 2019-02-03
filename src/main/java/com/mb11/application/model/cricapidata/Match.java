@@ -20,23 +20,23 @@ public class Match {
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	@Column(nullable = false)
-	private Long match_id;
+	private Long matchid;
 
 	/** The matchname. */
 	@Column(nullable = false, length = 30)
 	private String matchname;
-	
+
 	@Column(nullable = false, length = 30)
 	private String format_str;
-	
+
 	@Column(nullable = false, length = 30)
 	private String status_str;
 
 	/** The sid. */
 	@ManyToOne
-	@JoinColumn(name="sid", nullable=false)
+	@JoinColumn(name = "sid", nullable = false)
 	private Series sid;
 
 	/**
@@ -46,9 +46,9 @@ public class Match {
 
 	}
 
-	public Match(Long match_id, String matchname, String format_str, String status_str, Series sid) {
+	public Match(Long matchid, String matchname, String format_str, String status_str, Series sid) {
 		super();
-		this.match_id = match_id;
+		this.matchid = matchid;
 		this.matchname = matchname;
 		this.format_str = format_str;
 		this.status_str = status_str;
@@ -63,12 +63,12 @@ public class Match {
 		ID = iD;
 	}
 
-	public Long getMatch_id() {
-		return match_id;
+	public Long getMatchid() {
+		return matchid;
 	}
 
-	public void setMatch_id(Long match_id) {
-		this.match_id = match_id;
+	public void setMatchid(Long matchid) {
+		this.matchid = matchid;
 	}
 
 	public String getMatchname() {
@@ -105,10 +105,8 @@ public class Match {
 
 	@Override
 	public String toString() {
-		return "Match [ID=" + ID + ", match_id=" + match_id + ", matchname=" + matchname + ", format_str=" + format_str
+		return "Match [ID=" + ID + ", matchid=" + matchid + ", matchname=" + matchname + ", format_str=" + format_str
 				+ ", status_str=" + status_str + ", sid=" + sid + "]";
 	}
-
-		
 
 }

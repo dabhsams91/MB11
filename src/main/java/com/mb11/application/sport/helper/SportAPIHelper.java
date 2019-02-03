@@ -34,7 +34,7 @@ public class SportAPIHelper {
 	 * @param id the id
 	 * @return the teams api
 	 */
-	public String getTeamsApi(Long id) {
+	public String getTeamsApi(String id) {
 		// https://rest.entitysport.com/v2/competitions/90534/teams?token=
 		competitionsUrl = "/competitions/" + id + "/teams";
 
@@ -51,7 +51,7 @@ public class SportAPIHelper {
 	 * @param id the id
 	 * @return the matches api
 	 */
-	public String getMatchesApi(Long id) {
+	public String getMatchesApi(String id) {
 		// https://rest.entitysport.com/v2/competitions/90534/matches?token=
 		competitionsUrl = "/competitions/" + id + "/matches";
 		StringBuilder baseUrl = RestTemplateConfig.getBaseURL();
@@ -68,7 +68,7 @@ public class SportAPIHelper {
 	 * @param id the id
 	 * @return the players api
 	 */
-	public String getPlayersApi(Long id) {
+	public String getPlayersApi(String id) {
 		// https://rest.entitysport.com/v2/competitions/90534/squads?token=
 		competitionsUrl = "/competitions/" + id + "/squads";
 
@@ -85,7 +85,7 @@ public class SportAPIHelper {
 	 * @param player_id the player id
 	 * @return the player info
 	 */
-	public String getPlayerInfo(Long player_id) {
+	public String getPlayerInfo(String player_id) {
 		// https://rest.entitysport.com/v2/players/119?token=
 		competitionsUrl = "/players/" + player_id;
 
@@ -102,7 +102,7 @@ public class SportAPIHelper {
 	 * @param id the id
 	 * @return the scorecard
 	 */
-	public String getScorecard(Long id) {
+	public String getScorecard(String id) {
 
 		// https://rest.entitysport.com/v2/matches/19899/scorecard?token=
 

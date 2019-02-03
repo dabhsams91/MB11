@@ -8,4 +8,5 @@ import com.mb11.application.model.cricapidata.Series;
 @Repository
 public interface SeriesRepository extends JpaRepository<Series, Long> {
 
+	public Series findBySeriesid(String seriesId);
 }

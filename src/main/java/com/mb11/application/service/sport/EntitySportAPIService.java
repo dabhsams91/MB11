@@ -5,7 +5,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,6 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.mb11.application.dao.cricapidata.MTeamRepository;
+import com.mb11.application.dao.cricapidata.MatchRepository;
+import com.mb11.application.dao.cricapidata.SeriesRepository;
+import com.mb11.application.dao.cricapidata.TeamPlayersRepository;
 import com.mb11.application.model.cricapidata.MTeam;
 import com.mb11.application.model.cricapidata.Match;
 import com.mb11.application.model.cricapidata.Series;
@@ -41,9 +47,17 @@ public class EntitySportAPIService {
 	@Autowired
 	private SportAPIHelper apiHelper;
 
-	/** The cric sportservice. */
 	@Autowired
-	private CricSportService cricSportservice;
+	private SeriesRepository seriesRepository;
+
+	@Autowired
+	private MTeamRepository teamRepository;
+
+	@Autowired
+	TeamPlayersRepository teamPlayersRepository;
+
+	@Autowired
+	MatchRepository matchRepository;
 
 	/**
 	 * Gets the series and teams.
@@ -53,105 +67,107 @@ public class EntitySportAPIService {
 	 * @throws JSONException  the JSON exception
 	 * @throws ParseException the parse exception
 	 */
-	public List<Series> getSeriesAndTeams(String year) throws JSONException, ParseException {
+	public List<Series> getSeries(String year) throws JSONException, ParseException {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
 		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getSeriesApi(year), HttpMethod.GET, entity,
 				String.class);
+
+		if (response == null || response.getBody() == null)
+			return null;
+
 		JSONObject myResponse = new JSONObject(response.getBody());
 
 		System.out.println("Response is-----  " + myResponse);
 
+		if (myResponse.getJSONObject("response") == null
+				|| myResponse.getJSONObject("response").getJSONArray("items") == null)
+			return null;
+
 		JSONArray jsonResults = myResponse.getJSONObject("response").getJSONArray("items");
+
 		System.out.println("JSON ARRAY IS........ " + jsonResults);
 		List<Series> lseries = new ArrayList<>();
 
 		for (int i = 0; i < jsonResults.length(); i++) {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-			Date startdate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("datestart"));
-			Date enddate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("dateend"));
+
 			Long cid = jsonResults.getJSONObject(i).getLong("cid");
 
-			lseries.add(new Series(Long.toString(cid), jsonResults.getJSONObject(i).getString("title"),
-					jsonResults.getJSONObject(i).getString("abbr"), jsonResults.getJSONObject(i).getString("category"),
-					startdate, enddate, jsonResults.getJSONObject(i).getInt("total_matches"),
-					jsonResults.getJSONObject(i).getInt("total_teams"), false,
-					cricSportservice.getTeamsWithSet(Long.valueOf(cid))));
+			if (cid != null && cid >= 0) {
+				String sid = Long.toString(cid);
+				Series series = seriesRepository.findBySeriesid(sid);
+				if (series == null) {
+					series = new Series();
+					series.setStatus(false);
+				}
+				DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+				Date startdate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("datestart"));
+				Date enddate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("dateend"));
 
+				series.setSeriesid(sid);
+				series.setEnddate(enddate);
+				series.setStartdate(startdate);
+				series.setSname(jsonResults.getJSONObject(i).getString("title"));
+				series.setShort_name(jsonResults.getJSONObject(i).getString("abbr"));
+				series.setTotalmatch(jsonResults.getJSONObject(i).getInt("total_matches"));
+				series.setCategory(jsonResults.getJSONObject(i).getString("category"));
+				series.setTotalteams(jsonResults.getJSONObject(i).getInt("total_teams"));
+				lseries.add(series);
+
+			}
 		}
-
 		return lseries;
 
 	}
 
-	/**
-	 * Gets the series.
-	 *
-	 * @param year the year
-	 * @return the series
-	 * @throws JSONException  the JSON exception
-	 * @throws ParseException the parse exception
-	 */
-	public List<Series> getSeries(String year) throws JSONException, ParseException {
-
-		String url = apiHelper.getSeriesApi(year);
+	public Set<MTeam> getTeams(String seriesId) {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
-		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-		JSONObject myResponse = new JSONObject(response.getBody());
-
-		System.out.println("Response is-----  " + myResponse);
-
-		JSONArray jsonResults = myResponse.getJSONObject("response").getJSONArray("items");
-		System.out.println("JSON ARRAY IS........ " + jsonResults);
-		List<Series> lseries = new ArrayList<>();
-
-		for (int i = 0; i < jsonResults.length(); i++) {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-			Date startdate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("datestart"));
-			Date enddate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("dateend"));
-			Long cid = jsonResults.getJSONObject(i).getLong("cid");
-			lseries.add(new Series(Long.toString(cid), jsonResults.getJSONObject(i).getString("title"),
-					jsonResults.getJSONObject(i).getString("abbr"), jsonResults.getJSONObject(i).getString("category"),
-					startdate, enddate, jsonResults.getJSONObject(i).getInt("total_matches"),
-					jsonResults.getJSONObject(i).getInt("total_teams"), false));
-
-		}
-
-		return lseries;
-
-	}
-
-	/**
-	 * Gets the teams.
-	 *
-	 * @param id the id
-	 * @return the teams
-	 */
-	public List<MTeam> getTeams(Long id) {
-
-		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
-
-		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(id), HttpMethod.GET, entity,
+		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(seriesId), HttpMethod.GET, entity,
 				String.class);
+
+		if (response == null || response.getBody() == null)
+			return null;
+
 		JSONObject myResponse = new JSONObject(response.getBody());
+
+		if (myResponse.getJSONObject("response") == null
+				|| myResponse.getJSONObject("response").getJSONArray("teams") == null)
+			return null;
 
 		System.out.println("Response is-----  " + myResponse);
 
 		JSONArray jsonResults = myResponse.getJSONObject("response").getJSONArray("teams");
+
 		System.out.println("JSON ARRAY IS........ " + jsonResults);
-		List<MTeam> lteams = new ArrayList<>();
+
+		Set<MTeam> lteams = new HashSet<>();
+
+		String logo_url = "";
 
 		for (int i = 0; i < jsonResults.length(); i++) {
 
-			lteams.add(new MTeam(jsonResults.getJSONObject(i).getLong("tid"),
-					jsonResults.getJSONObject(i).getString("title"), jsonResults.getJSONObject(i).getString("abbr"),
-					jsonResults.getJSONObject(i).getString("logo_url"), jsonResults.getJSONObject(i).getString("sex"),
-					Sporttype.Cricket, null
+			if (myResponse.has("logo_url")) {
+				logo_url = jsonResults.getJSONObject(i).getString("logo_url");
+			} else {
+				logo_url = "";
+			}
+			Long tid = jsonResults.getJSONObject(i).getLong("tid");
+			MTeam mTeam = teamRepository.findByTeamid(tid);
+			if (mTeam == null) {
+				mTeam = new MTeam();
+			}
 
-			));
+			mTeam.setLogo_url(logo_url);
+			mTeam.setTeamname(jsonResults.getJSONObject(i).getString("title"));
+			mTeam.setTeamabbr(jsonResults.getJSONObject(i).getString("abbr"));
+			mTeam.setTeamid(tid);
+			mTeam.setSporttype(Sporttype.Cricket);
+			mTeam.setSex(jsonResults.getJSONObject(i).getString("sex"));
+
+			lteams.add(mTeam);
 
 		}
 
@@ -167,16 +183,23 @@ public class EntitySportAPIService {
 	 * @throws JSONException  the JSON exception
 	 * @throws ParseException the parse exception
 	 */
-	public List<Match> getMatches(Long id) throws JSONException, ParseException {
+	public List<Match> getMatches(String seriesId) throws JSONException, ParseException {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
-		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getMatchesApi(id), HttpMethod.GET, entity,
-				String.class);
+		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getMatchesApi(seriesId), HttpMethod.GET,
+				entity, String.class);
+
+		if (response == null || response.getBody() == null)
+			return null;
+
 		JSONObject myResponse = new JSONObject(response.getBody());
 
 		System.out.println("Match API Response is-----  " + myResponse);
-		System.out.println();
+
+		if (myResponse.getJSONObject("response") == null
+				|| myResponse.getJSONObject("response").getJSONArray("items") == null)
+			return null;
 
 		JSONArray jsonResults = myResponse.getJSONObject("response").getJSONArray("items");
 		System.out.println("MATCH JSON ARRAY IS........ " + jsonResults);
@@ -191,20 +214,22 @@ public class EntitySportAPIService {
 					.parse(jsonResults.getJSONObject(i).getJSONObject("competition").getString("dateend"));
 			Long cid = jsonResults.getJSONObject(i).getJSONObject("competition").getLong("cid");
 
-			lMatch.add(new Match(
+			Long matchId = jsonResults.getJSONObject(i).getLong("match_id");
 
-					jsonResults.getJSONObject(i).getLong("match_id"), jsonResults.getJSONObject(i).getString("title"),
-					jsonResults.getJSONObject(i).getString("format_str"),
-					jsonResults.getJSONObject(i).getString("status_str"),
-					new Series(Long.toString(cid),
-							jsonResults.getJSONObject(i).getJSONObject("competition").getString("title"),
-							jsonResults.getJSONObject(i).getJSONObject("competition").getString("abbr"),
-							jsonResults.getJSONObject(i).getJSONObject("competition").getString("category"), startdate,
-							enddate, jsonResults.getJSONObject(i).getJSONObject("competition").getInt("total_matches"),
-							jsonResults.getJSONObject(i).getJSONObject("competition").getInt("total_teams"), false,
-							cricSportservice.getTeamsWithSet(Long.valueOf(cid)
+			Series series = seriesRepository.findBySeriesid(seriesId);
+			if (series != null) {
+				Match match = matchRepository.findByMatchid(matchId);
 
-							))));
+				if (match == null) {
+					match = new Match();
+					match.setMatchid(matchId);
+				}
+				match.setMatchname(jsonResults.getJSONObject(i).getString("title"));
+				match.setFormat_str(jsonResults.getJSONObject(i).getString("format_str"));
+				match.setStatus_str(jsonResults.getJSONObject(i).getString("status_str"));
+				match.setSid(series);
+				lMatch.add(match);
+			}
 
 		}
 
@@ -218,13 +243,21 @@ public class EntitySportAPIService {
 	 * @param id the id
 	 * @return the team players
 	 */
-	public List<TeamPlayers> getTeamPlayers(Long id) {
+	public List<TeamPlayers> getTeamPlayers(String seriesId) {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
-		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getPlayersApi(id), HttpMethod.GET, entity,
-				String.class);
+		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getPlayersApi(seriesId), HttpMethod.GET,
+				entity, String.class);
+
+		if (response == null || response.getBody() == null)
+			return null;
+
 		JSONObject myResponse = new JSONObject(response.getBody());
+
+		if (myResponse.getJSONObject("response") == null
+				|| myResponse.getJSONObject("response").getJSONArray("squads") == null)
+			return null;
 
 		System.out.println("TeamPlayers API Response is-----  " + myResponse);
 		System.out.println();
@@ -235,30 +268,28 @@ public class EntitySportAPIService {
 
 		List<TeamPlayers> lTeamPlayers = new ArrayList<>();
 
-		MTeam lteams = null;
-
 		for (int i = 0; i < jsonResults.length(); i++) {
 
-			lteams = new MTeam(jsonResults.getJSONObject(i).getLong("tid"),
-					jsonResults.getJSONObject(i).getString("title"), jsonResults.getJSONObject(i).getString("abbr"),
-					jsonResults.getJSONObject(i).getString("logo_url"), jsonResults.getJSONObject(i).getString("sex"),
-					Sporttype.Cricket, null
-
-			);
+			Long teamId = jsonResults.getJSONObject(i).getLong("team_id");
+			MTeam mTeam = teamRepository.findByTeamid(teamId);
 
 			JSONObject playesrObject = jsonResults.getJSONObject(i);
 			JSONArray playesrArray = playesrObject.getJSONArray("players");
 			for (int j = 0; j < playesrArray.length(); j++) {
 
-				lTeamPlayers.add(new TeamPlayers(
+				Long playerid = playesrArray.getJSONObject(j).getLong("pid");
 
-						playesrArray.getJSONObject(j).getLong("pid"),
-						playesrArray.getJSONObject(j).getString("first_name"),
-						playesrArray.getJSONObject(j).getString("middle_name"),
-						playesrArray.getJSONObject(j).getString("last_name"), lteams // will have to update this line
+				TeamPlayers teamPlayers = teamPlayersRepository.findByPlayerid(playerid);
+				if (teamPlayers == null) {
+					teamPlayers = new TeamPlayers();
+					teamPlayers.setPlayerid(playerid);
+				}
 
-				));
-
+				teamPlayers.setFirstname(playesrArray.getJSONObject(j).getString("first_name"));
+				teamPlayers.setLastname(playesrArray.getJSONObject(j).getString("last_name"));
+				teamPlayers.setMiddlename(playesrArray.getJSONObject(j).getString("middle_name"));
+				teamPlayers.setmTeam(mTeam);
+				lTeamPlayers.add(teamPlayers);
 			}
 
 		}

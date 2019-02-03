@@ -1,13 +1,9 @@
 package com.mb11.application.model.user;
 
-import java.util.Collection;
-
-import javax.management.relation.Role;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +19,10 @@ public class Privilege {
 	/*@ManyToMany(mappedBy = "privileges")
 	private Collection<Role> roles;
 */
+	public Privilege() {
+
+	}
+
 	public Privilege(String name) {
 		this.name = name;
 	}

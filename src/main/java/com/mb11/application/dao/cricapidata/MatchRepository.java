@@ -8,5 +8,5 @@ import com.mb11.application.model.cricapidata.Match;
 @Repository
 public interface MatchRepository extends JpaRepository<Match, Long>
 {
-
+	public Match findByMatchid(Long matchid);
 }

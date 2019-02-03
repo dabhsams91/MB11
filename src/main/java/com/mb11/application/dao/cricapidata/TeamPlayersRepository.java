@@ -8,4 +8,5 @@ import com.mb11.application.model.cricapidata.TeamPlayers;
 @Repository
 public interface TeamPlayersRepository extends JpaRepository<TeamPlayers, Long>{
 
+	public TeamPlayers findByPlayerid(Long playerid);
 }

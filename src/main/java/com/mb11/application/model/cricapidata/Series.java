@@ -33,15 +33,15 @@ public class Series {
 	/** The series id. */
 	@NotNull
 	@Column(name = "seriesid", unique = true, length = 30)
-	private String seriesId;
+	private String seriesid;
 
 	/** The sname. */
 	@Column(nullable = false, length = 100)
 	private String sname;
-	
+
 	@Column(nullable = false, length = 100)
 	private String short_name;
-	
+
 	@Column(nullable = false, length = 30)
 	private String category;
 
@@ -56,7 +56,7 @@ public class Series {
 	/** The totalmatch. */
 	@Column(nullable = false)
 	private int totalmatch;
-	
+
 	@Column(nullable = false)
 	private int totalteams;
 
@@ -69,15 +69,13 @@ public class Series {
 	Set<MTeam> mTeams = new HashSet<>();
 
 	public Series() {
-	
+
 	}
 
-	
-	
-	public Series(@NotNull String seriesId, String sname, String short_name, String category, Date startdate,
-			Date enddate, int totalmatch, int totalteams,Boolean status) {
+	public Series(@NotNull String seriesid, String sname, String short_name, String category, Date startdate,
+			Date enddate, int totalmatch, int totalteams, Boolean status) {
 		super();
-		this.seriesId = seriesId;
+		this.seriesid = seriesid;
 		this.sname = sname;
 		this.short_name = short_name;
 		this.category = category;
@@ -85,14 +83,14 @@ public class Series {
 		this.enddate = enddate;
 		this.totalmatch = totalmatch;
 		this.totalteams = totalteams;
-		this.status=status;
-		
+		this.status = status;
+
 	}
-	
-	public Series(@NotNull String seriesId, String sname, String short_name, String category, Date startdate,
+
+	public Series(@NotNull String seriesid, String sname, String short_name, String category, Date startdate,
 			Date enddate, int totalmatch, int totalteams, Boolean status, Set<MTeam> mTeams) {
 		super();
-		this.seriesId = seriesId;
+		this.seriesid = seriesid;
 		this.sname = sname;
 		this.short_name = short_name;
 		this.category = category;
@@ -103,8 +101,6 @@ public class Series {
 		this.status = status;
 		this.mTeams = mTeams;
 	}
-	
-
 
 	public long getID() {
 		return ID;
@@ -114,12 +110,12 @@ public class Series {
 		ID = iD;
 	}
 
-	public String getSeriesId() {
-		return seriesId;
+	public String getSeriesid() {
+		return seriesid;
 	}
 
-	public void setSeriesId(String seriesId) {
-		this.seriesId = seriesId;
+	public void setSeriesid(String seriesid) {
+		this.seriesid = seriesid;
 	}
 
 	public String getSname() {
@@ -196,12 +192,9 @@ public class Series {
 
 	@Override
 	public String toString() {
-		return "Series [ID=" + ID + ", seriesId=" + seriesId + ", sname=" + sname + ", short_name=" + short_name
+		return "Series [ID=" + ID + ", seriesid=" + seriesid + ", sname=" + sname + ", short_name=" + short_name
 				+ ", category=" + category + ", startdate=" + startdate + ", enddate=" + enddate + ", totalmatch="
 				+ totalmatch + ", totalteams=" + totalteams + ", status=" + status + ", mTeams=" + mTeams + "]";
 	}
-	
-	
 
-	
 }

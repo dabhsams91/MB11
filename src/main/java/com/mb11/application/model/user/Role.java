@@ -24,14 +24,17 @@ public class Role {
 	private Long ID;
 
 	private String name;
-	
+
 	@ManyToMany(mappedBy = "roles")
 	private Collection<User> users;
 
 	@ManyToMany
-	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "ID"), 
-	inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "ID"))
+	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "ID"))
 	private Collection<Privilege> privileges;
+
+	public Role() {
+
+	}
 
 	public Role(String name) {
 		this.name = name;

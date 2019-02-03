@@ -20,20 +20,20 @@ public class TeamPlayers {
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	@Column(nullable = false)
-	private Long player_id;
+	private Long playerid;
 
 	/** The firstname. */
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String firstname;
 
 	/** The middlename. */
-	@Column(length = 30)
+	@Column(length = 100)
 	private String middlename;
 
 	/** The lastname. */
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String lastname;
 
 	/** The m team. */
@@ -48,9 +48,9 @@ public class TeamPlayers {
 
 	}
 
-	public TeamPlayers(Long player_id, String firstname, String middlename, String lastname, MTeam mTeam) {
+	public TeamPlayers(Long playerid, String firstname, String middlename, String lastname, MTeam mTeam) {
 		super();
-		this.player_id = player_id;
+		this.playerid = playerid;
 		this.firstname = firstname;
 		this.middlename = middlename;
 		this.lastname = lastname;
@@ -65,12 +65,12 @@ public class TeamPlayers {
 		ID = iD;
 	}
 
-	public Long getPlayer_id() {
-		return player_id;
+	public Long getPlayerid() {
+		return playerid;
 	}
 
-	public void setPlayer_id(Long player_id) {
-		this.player_id = player_id;
+	public void setPlayerid(Long playerid) {
+		this.playerid = playerid;
 	}
 
 	public String getFirstname() {
@@ -107,11 +107,8 @@ public class TeamPlayers {
 
 	@Override
 	public String toString() {
-		return "TeamPlayers [ID=" + ID + ", player_id=" + player_id + ", firstname=" + firstname + ", middlename="
+		return "TeamPlayers [ID=" + ID + ", playerid=" + playerid + ", firstname=" + firstname + ", middlename="
 				+ middlename + ", lastname=" + lastname + ", mTeam=" + mTeam + "]";
 	}
 
-
-	
-	
 }
