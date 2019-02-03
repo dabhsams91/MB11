@@ -207,13 +207,6 @@ public class EntitySportAPIService {
 
 		for (int i = 0; i < jsonResults.length(); i++) {
 
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-			Date startdate = (Date) formatter
-					.parse(jsonResults.getJSONObject(i).getJSONObject("competition").getString("datestart"));
-			Date enddate = (Date) formatter
-					.parse(jsonResults.getJSONObject(i).getJSONObject("competition").getString("dateend"));
-			Long cid = jsonResults.getJSONObject(i).getJSONObject("competition").getLong("cid");
-
 			Long matchId = jsonResults.getJSONObject(i).getLong("match_id");
 
 			Series series = seriesRepository.findBySeriesid(seriesId);
