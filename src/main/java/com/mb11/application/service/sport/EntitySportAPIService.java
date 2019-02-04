@@ -67,7 +67,7 @@ public class EntitySportAPIService {
 	 * @throws JSONException  the JSON exception
 	 * @throws ParseException the parse exception
 	 */
-	public List<Series> getSeries(String year) throws JSONException, ParseException {
+	public List<Series> getSeries(String year) {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
@@ -102,8 +102,18 @@ public class EntitySportAPIService {
 					series.setStatus(false);
 				}
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
-				Date startdate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("datestart"));
-				Date enddate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("dateend"));
+				Date startdate = null;
+				Date enddate = null;
+				try {
+					startdate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("datestart"));
+					enddate = (Date) formatter.parse(jsonResults.getJSONObject(i).getString("dateend"));
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				series.setSeriesid(sid);
 				series.setEnddate(enddate);
@@ -183,7 +193,7 @@ public class EntitySportAPIService {
 	 * @throws JSONException  the JSON exception
 	 * @throws ParseException the parse exception
 	 */
-	public List<Match> getMatches(String seriesId) throws JSONException, ParseException {
+	public List<Match> getMatches(String seriesId) {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
@@ -290,5 +300,5 @@ public class EntitySportAPIService {
 		return lTeamPlayers;
 
 	}
-	
+
 }
