@@ -103,7 +103,7 @@ public class CricSportSyncService {
 	}
 
 	@Transactional
-	public void getSeriesAndTeams(String duration) {
+	public void syncSeriesTeamsMatchAndPlayers(String duration) {
 
 		List<Series> ls = entitySportAPIService.getSeries(duration);
 		if (ls != null) {

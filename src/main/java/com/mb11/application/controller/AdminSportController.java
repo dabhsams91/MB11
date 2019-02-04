@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.admin.sport.Series;
+import com.mb11.application.service.sport.CricSportSyncService;
 import com.mb11.application.service.sport.EntitySportAPIService;
 
 @RestController
@@ -21,12 +22,11 @@ import com.mb11.application.service.sport.EntitySportAPIService;
 public class AdminSportController {
 
 	@Autowired
-	EntitySportAPIService sportAPIService;
+	CricSportSyncService cricSportSyncService;
 
 	@GetMapping("/series")
 	public ResponseEntity<?> getSeriesBtnTime(Date toDate, Date fromDate) throws JSONException, ParseException {
 
-		sportAPIService.getSeries("2018");
 		ApiResponse apiResponse = new ApiResponse(true, "Series list data fetch successfully");
 		return ResponseEntity.ok(apiResponse);
 	}
@@ -42,9 +42,10 @@ public class AdminSportController {
 		return ResponseEntity.ok(apiResponse);
 	}
 
-	public ResponseEntity<?> syncSeriesAndTeam() {
-		
-		ApiResponse apiResponse = new ApiResponse(true, "Series data fetch successfully");
+	public ResponseEntity<?> syncSeriesAndTeam(Date toDate, Date fromDate) {
+
+		cricSportSyncService.syncSeriesTeamsMatchAndPlayers("");
+		ApiResponse apiResponse = new ApiResponse(true, "Data sync successfully");
 
 		return ResponseEntity.ok(apiResponse);
 	}
