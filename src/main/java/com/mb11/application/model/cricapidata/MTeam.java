@@ -28,10 +28,10 @@ public class MTeam {
 
 	/** The teamname. */
 	//@Column(nullable = false, unique = true)
-	@Column(nullable = false)
+	@Column(nullable = false,length=100)
 	private String teamname;
 	
-	@Column(nullable = false,length=30)
+	@Column(nullable = false,length=100)
 	private String teamabbr;
 	
 	@Column(nullable = false)

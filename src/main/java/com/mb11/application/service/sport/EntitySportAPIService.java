@@ -271,6 +271,7 @@ public class EntitySportAPIService {
 
 		List<TeamPlayers> lTeamPlayers = new ArrayList<>();
 
+		Set<Long> playerIds = new HashSet<>();
 		for (int i = 0; i < jsonResults.length(); i++) {
 
 			Long teamId = jsonResults.getJSONObject(i).getLong("team_id");
@@ -281,18 +282,29 @@ public class EntitySportAPIService {
 			for (int j = 0; j < playesrArray.length(); j++) {
 
 				Long playerid = playesrArray.getJSONObject(j).getLong("pid");
+				System.out.println("Team id" + mTeam.getTeamname() + "Player Id:" + playerid + " Play name:"
+						+ playesrArray.getJSONObject(j).getString("first_name"));
 
-				TeamPlayers teamPlayers = teamPlayersRepository.findByPlayerid(playerid);
-				if (teamPlayers == null) {
-					teamPlayers = new TeamPlayers();
-					teamPlayers.setPlayerid(playerid);
+				if (playerid == 67L) {
+					System.out.println("Team id" + mTeam.getTeamname() + "Player Id:" + playerid + " Play name:"
+							+ playesrArray.getJSONObject(j).getString("first_name"));
 				}
 
-				teamPlayers.setFirstname(playesrArray.getJSONObject(j).getString("first_name"));
-				teamPlayers.setLastname(playesrArray.getJSONObject(j).getString("last_name"));
-				teamPlayers.setMiddlename(playesrArray.getJSONObject(j).getString("middle_name"));
-				teamPlayers.setmTeam(mTeam);
-				lTeamPlayers.add(teamPlayers);
+				TeamPlayers teamPlayers = teamPlayersRepository.findByPlayerid(playerid);
+				if (teamPlayers == null && !playerIds.contains(playerid)) {
+					teamPlayers = new TeamPlayers();
+					teamPlayers.setPlayerid(playerid);
+					playerIds.add(playerid);
+				}
+
+				if (!playerIds.contains(playerid)) {
+					teamPlayers.setFirstname(playesrArray.getJSONObject(j).getString("first_name"));
+					teamPlayers.setLastname(playesrArray.getJSONObject(j).getString("last_name"));
+					teamPlayers.setMiddlename(playesrArray.getJSONObject(j).getString("middle_name"));
+					teamPlayers.setmTeam(mTeam);
+					lTeamPlayers.add(teamPlayers);
+				}
+
 			}
 
 		}

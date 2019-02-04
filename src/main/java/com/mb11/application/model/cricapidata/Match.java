@@ -25,13 +25,13 @@ public class Match {
 	private Long matchid;
 
 	/** The matchname. */
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 200)
 	private String matchname;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String format_str;
 
-	@Column(nullable = false, length = 30)
+	@Column(nullable = false, length = 100)
 	private String status_str;
 
 	/** The sid. */

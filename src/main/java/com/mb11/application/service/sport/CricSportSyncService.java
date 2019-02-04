@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mb11.application.dao.cricapidata.MTeamRepository;
 import com.mb11.application.dao.cricapidata.MatchRepository;
@@ -23,6 +24,7 @@ import com.mb11.application.model.cricapidata.Series;
 import com.mb11.application.model.cricapidata.SeriesTeamPlayer;
 import com.mb11.application.model.cricapidata.TeamPlayers;
 
+@Service
 public class CricSportSyncService {
 
 	@Autowired
@@ -48,7 +50,7 @@ public class CricSportSyncService {
 
 	@Autowired
 	PlayerCreditRepository playerCreditRepository;
-
+	
 	@Transactional
 	public List<Series> saveUpdateSeries(List<Series> series) {
 		return seriesRepository.saveAll(series);
@@ -72,7 +74,7 @@ public class CricSportSyncService {
 	@Transactional
 	public void saveUpdateMatchTeamLink(List<MTeam> mTeams, Match match) {
 
-		if (mTeams != null && mTeams.size() > 0 && match != null) {
+		if (!mTeams.isEmpty() && match != null) {
 			List<MatchTeamLink> matchTeamLinks = new ArrayList<>();
 			for (MTeam mTeam : mTeams) {
 
@@ -88,7 +90,7 @@ public class CricSportSyncService {
 	@Transactional
 	public void saveUpdateSeriesTeamPlayers(List<TeamPlayers> teamPlayers, Series series) {
 
-		if (teamPlayers != null && teamPlayers.size() > 0 && series != null) {
+		if (!teamPlayers.isEmpty() && series != null) {
 			List<SeriesTeamPlayer> seriesTeamPlayers = new ArrayList<>();
 			for (TeamPlayers players : teamPlayers) {
 

@@ -36,10 +36,10 @@ public class Series {
 	private String seriesid;
 
 	/** The sname. */
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 200)
 	private String sname;
 
-	@Column(nullable = false, length = 100)
+	@Column(nullable = false, length = 200)
 	private String short_name;
 
 	@Column(nullable = false, length = 30)
