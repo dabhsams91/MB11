@@ -30,6 +30,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.mb11.application.exception.AuthenticationProcessingException;
 import com.mb11.application.model.user.AuthProvider;
+import com.mb11.application.model.user.Role;
 import com.mb11.application.model.user.User;
 import com.mb11.application.security.UserPrincipal;
 import com.mb11.application.security.authuser.OAuth2UserInfo;
@@ -160,7 +161,7 @@ public class CustomAuthUserService extends DefaultOAuth2UserService {
 		user.setName(oAuth2UserInfo.getName());
 		user.setEmail(oAuth2UserInfo.getEmail());
 		user.setImageUrl(oAuth2UserInfo.getImageUrl());
-
+		user.setRoles(Collections.singletonList(new Role("USER")));
 		user.setMobilenumber("0000000000");
 		return usersService.addUsers(user);
 	}
