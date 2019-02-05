@@ -113,7 +113,7 @@ public class CricSportSyncService {
 
 			for (Series series : persistedSeries) {
 
-				Set<MTeam> mt = entitySportAPIService.getTeams(series.getSeriesid());
+				Set<MTeam> mt = entitySportAPIService.getTeams(series);
 
 				List<MTeam> persistedTeams = null;
 

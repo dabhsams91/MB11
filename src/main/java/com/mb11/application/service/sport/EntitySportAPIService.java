@@ -131,11 +131,11 @@ public class EntitySportAPIService {
 
 	}
 
-	public Set<MTeam> getTeams(String seriesId) {
+	public Set<MTeam> getTeams(Series series) {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
-		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(seriesId), HttpMethod.GET, entity,
+		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(series.getSeriesid()), HttpMethod.GET, entity,
 				String.class);
 
 		if (response == null || response.getBody() == null)
@@ -176,6 +176,9 @@ public class EntitySportAPIService {
 			mTeam.setTeamid(tid);
 			mTeam.setSporttype(Sporttype.Cricket);
 			mTeam.setSex(jsonResults.getJSONObject(i).getString("sex"));
+			Set<Series> seriesSet = new HashSet<>();
+			seriesSet.add(series);
+			mTeam.setSeries(seriesSet);
 
 			lteams.add(mTeam);
 
@@ -295,16 +298,17 @@ public class EntitySportAPIService {
 					teamPlayers = new TeamPlayers();
 					teamPlayers.setPlayerid(playerid);
 					playerIds.add(playerid);
-				}
-
-				if (!playerIds.contains(playerid)) {
+					
+				} 
+				if(teamPlayers!=null) {
 					teamPlayers.setFirstname(playesrArray.getJSONObject(j).getString("first_name"));
 					teamPlayers.setLastname(playesrArray.getJSONObject(j).getString("last_name"));
 					teamPlayers.setMiddlename(playesrArray.getJSONObject(j).getString("middle_name"));
 					teamPlayers.setmTeam(mTeam);
 					lTeamPlayers.add(teamPlayers);
 				}
-
+				
+				
 			}
 
 		}
