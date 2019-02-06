@@ -1,11 +1,14 @@
 package com.mb11.application.service.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mb11.application.dao.user.RoleRepository;
 import com.mb11.application.dao.user.UserRepository;
+import com.mb11.application.model.user.Role;
 import com.mb11.application.model.user.User;
 
 @Service
@@ -13,6 +16,15 @@ public class UsersService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private RoleRepository roleRepository;
+
+	public Role getRole(String roleName) {
+
+		return roleRepository.findByName(roleName);
+
+	}
 
 	public User getUsersById(Long id) {
 		User obj = userRepository.getOne(id);
@@ -24,7 +36,7 @@ public class UsersService {
 	}
 
 	public User addUsers(User usr) {
-		return userRepository.save(usr);
+		return userRepository.saveAndFlush(usr);
 	}
 
 	public User updateUsers(User usr) {
@@ -39,7 +51,7 @@ public class UsersService {
 	 * @param email
 	 * @return
 	 */
-	public User findByEmail(String email) {
+	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 
 	}
@@ -48,7 +60,7 @@ public class UsersService {
 	 * @param mobilenumber
 	 * @return
 	 */
-	public User findByMobilenumber(String mobilenumber) {
+	public Optional<User> findByMobilenumber(String mobilenumber) {
 		return userRepository.findByMobilenumber(mobilenumber);
 
 	}

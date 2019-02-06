@@ -1,21 +1,22 @@
 package com.mb11.application.model.user;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,7 +29,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Class Users.
  */
 @Entity
-@Table(name = "Users")
+@Table(name = "Users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
 
 	/** The id. */
@@ -85,22 +88,19 @@ public class User {
 	/** The createtime. */
 	@CreationTimestamp
 	@Column(nullable = false)
-	private LocalDateTime createtime;
+	private Timestamp createtime;
 
 	/** The updatetime. */
 	@UpdateTimestamp
 	@Column(nullable = false)
-	private LocalDateTime updatetime;
-
-	/** The address. */
-	@OneToOne
-	private Address address;
+	private Timestamp updatetime;
 
 	/** The reffrencecode. */
 	@Column(length = 50)
 	private String reffrencecode;
 
-	@ManyToMany
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "ID"))
 	private Collection<Role> roles;
 
@@ -131,8 +131,8 @@ public class User {
 	 * @param reffrencecode the reffrencecode
 	 */
 	public User(String name, String email, String imageUrl, boolean emailVerified, String password, String mobilenumber,
-			String providerId, String firstname, String middlename, String lastname, Date dob, LocalDateTime createtime,
-			LocalDateTime updatetime, Address address, String reffrencecode) {
+			String providerId, String firstname, String middlename, String lastname, Date dob, Timestamp createtime,
+			Timestamp updatetime, String reffrencecode) {
 		super();
 
 		this.name = name;
@@ -148,7 +148,6 @@ public class User {
 		this.dob = dob;
 		this.createtime = createtime;
 		this.updatetime = updatetime;
-		this.address = address;
 		this.reffrencecode = reffrencecode;
 	}
 
@@ -174,7 +173,7 @@ public class User {
 	 */
 	public User(Long iD, String name, String email, String imageUrl, boolean emailVerified, String password,
 			String mobilenumber, String providerId, String firstname, String middlename, String lastname, Date dob,
-			LocalDateTime createtime, LocalDateTime updatetime, Address address, String reffrencecode) {
+			Timestamp createtime, Timestamp updatetime, String reffrencecode) {
 		super();
 		ID = iD;
 		this.name = name;
@@ -190,7 +189,6 @@ public class User {
 		this.dob = dob;
 		this.createtime = createtime;
 		this.updatetime = updatetime;
-		this.address = address;
 		this.reffrencecode = reffrencecode;
 	}
 
@@ -415,7 +413,7 @@ public class User {
 	 *
 	 * @return the createtime
 	 */
-	public LocalDateTime getCreatetime() {
+	public Timestamp getCreatetime() {
 		return createtime;
 	}
 
@@ -424,7 +422,7 @@ public class User {
 	 *
 	 * @param createtime the new createtime
 	 */
-	public void setCreatetime(LocalDateTime createtime) {
+	public void setCreatetime(Timestamp createtime) {
 		this.createtime = createtime;
 	}
 
@@ -433,7 +431,7 @@ public class User {
 	 *
 	 * @return the updatetime
 	 */
-	public LocalDateTime getUpdatetime() {
+	public Timestamp getUpdatetime() {
 		return updatetime;
 	}
 
@@ -442,26 +440,8 @@ public class User {
 	 *
 	 * @param updatetime the new updatetime
 	 */
-	public void setUpdatetime(LocalDateTime updatetime) {
+	public void setUpdatetime(Timestamp updatetime) {
 		this.updatetime = updatetime;
-	}
-
-	/**
-	 * Gets the address.
-	 *
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
-
-	/**
-	 * Sets the address.
-	 *
-	 * @param address the new address
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	/**

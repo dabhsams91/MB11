@@ -26,4 +26,14 @@ public class UserController {
 			new ResourceNotFoundException("User", "id", userPrincipal.getId());
 		return user;
 	}
+	
+	@GetMapping("/admin/me")
+	@PreAuthorize("hasRole('ADMIN')")
+	public User getCurrentAdmin(@CurrentUser UserPrincipal userPrincipal) {
+
+		User user = usersService.getUsersById(userPrincipal.getId());
+		if (user == null)
+			new ResourceNotFoundException("User", "id", userPrincipal.getId());
+		return user;
+	}
 }
