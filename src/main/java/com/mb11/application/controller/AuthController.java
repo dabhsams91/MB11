@@ -47,7 +47,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody Login login) {
 
-        Authentication authentication = authenticationManager.authenticate(
+    	Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                 		login.getEmail(),
                 		login.getPassword()
@@ -61,9 +61,9 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUp signUpRequest) {
-    	if(usersService.findByEmail(signUpRequest.getEmail())!=null) {
+    	if(usersService.findByEmail(signUpRequest.getEmail()).isPresent()) {
             throw new BadRequestException("Email address already in use.");
-        }else if(usersService.findByMobilenumber(signUpRequest.getMobilenumber())!=null) {
+        }else if(signUpRequest.getMobilenumber()!=null && !signUpRequest.getMobilenumber().isEmpty() && usersService.findByMobilenumber(signUpRequest.getMobilenumber()).isPresent()) {
             throw new BadRequestException("Mobile number already in use.");
         }
     	
@@ -75,8 +75,6 @@ public class AuthController {
         user.setProvider(AuthProvider.local);
         if(signUpRequest.getMobilenumber()!=null ) {
         	user.setMobilenumber(signUpRequest.getMobilenumber());
-        }else {
-        	user.setMobilenumber("0000000000");
         }
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));

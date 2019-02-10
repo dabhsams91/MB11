@@ -22,12 +22,11 @@ public class UserController {
 	private UsersService usersService;
 
 	@GetMapping("/user/me")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public com.mb11.application.payload.User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
 
-		User user = usersService.getUsersById(userPrincipal.getId());
-		if (user == null)
-			new ResourceNotFoundException("User", "id", userPrincipal.getId());
+		User user = usersService.getUsersById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 
 		com.mb11.application.payload.User payloadUser = new com.mb11.application.payload.User();
 		payloadUser.setID(user.getID());
@@ -62,9 +61,8 @@ public class UserController {
 	@PreAuthorize("hasRole('ADMIN')")
 	public com.mb11.application.payload.User getCurrentAdmin(@CurrentUser UserPrincipal userPrincipal) {
 
-		User user = usersService.getUsersById(userPrincipal.getId());
-		if (user == null)
-			new ResourceNotFoundException("User", "id", userPrincipal.getId());
+		User user = usersService.getUsersById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 
 		com.mb11.application.payload.User payloadUser = new com.mb11.application.payload.User();
 		payloadUser.setID(user.getID());

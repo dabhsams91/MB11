@@ -102,7 +102,7 @@ public class MB11SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js")
                         .permitAll()
-                    .antMatchers("/auth/**", "/oauth2/**","/cricapi/**").hasAnyRole("ADMIN","USER").anyRequest()
+                    .antMatchers("/auth/**", "/oauth2/**","/cricapi/**").permitAll().anyRequest()
                        .authenticated()
                     .and()
                 .oauth2Login()

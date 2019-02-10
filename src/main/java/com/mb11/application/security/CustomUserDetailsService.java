@@ -1,7 +1,5 @@
 package com.mb11.application.security;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,18 +21,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		Optional<User> user = usersService.findByEmail(email);
-		if (user == null)
-			new UsernameNotFoundException("User not found with email : " + email);
+		User user = usersService.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("User not found with email : " + email));
 
-		return UserPrincipal.create(user.get());
+		return UserPrincipal.create(user);
 	}
 
 	@Transactional
 	public UserDetails loadUserById(Long id) {
-		User user = usersService.getUsersById(id);
-		if (user == null)
-			new ResourceNotFoundException("User", "id", id);
+		User user = usersService.getUsersById(id).orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		return UserPrincipal.create(user);
 	}
 

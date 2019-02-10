@@ -26,8 +26,8 @@ public class UsersService {
 
 	}
 
-	public User getUsersById(Long id) {
-		User obj = userRepository.getOne(id);
+	public Optional<User> getUsersById(Long id) {
+		Optional<User> obj = userRepository.findById(id);
 		return obj;
 	}
 

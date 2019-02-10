@@ -50,26 +50,30 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		createRoleIfNotFound("USER", Arrays.asList(readPrivilege));
 		Role adminRole = roleRepository.findByName("ADMIN");
 		Role userRole = roleRepository.findByName("USER");
-		User adminUser = new User();
-		adminUser.setFirstname("Test");
-		adminUser.setLastname("Test");
-		adminUser.setPassword(passwordEncoder.encode("test"));
-		adminUser.setEmail("test@test.com");
-		adminUser.setRoles(Arrays.asList(adminRole));
-		adminUser.setProvider(AuthProvider.local);
-		adminUser.setProviderId("local");
-		userRepository.save(adminUser);
-		
-		User adminAndUser = new User();
-		adminAndUser.setFirstname("Khushu");
-		adminAndUser.setLastname("Dabhs");
-		adminAndUser.setPassword(passwordEncoder.encode("khushi"));
-		adminAndUser.setEmail("khushi@test.com");
-		adminAndUser.setRoles(Arrays.asList(adminRole,userRole));
-		adminAndUser.setProvider(AuthProvider.local);
-		adminAndUser.setProviderId("local");
-		userRepository.save(adminAndUser);
-		
+		if (!userRepository.existsByEmail("test@test.com")) {
+			User adminUser = new User();
+			adminUser.setFirstname("Test");
+			adminUser.setLastname("Test");
+			adminUser.setPassword(passwordEncoder.encode("test"));
+			adminUser.setEmail("");
+			adminUser.setRoles(Arrays.asList(adminRole));
+			adminUser.setProvider(AuthProvider.local);
+			adminUser.setProviderId("local");
+			userRepository.save(adminUser);
+		}
+
+		if (!userRepository.existsByEmail("khushi@test.com")) {
+			User adminAndUser = new User();
+			adminAndUser.setFirstname("Khushu");
+			adminAndUser.setLastname("Dabhs");
+			adminAndUser.setPassword(passwordEncoder.encode("khushi"));
+			adminAndUser.setEmail("khushi@test.com");
+			adminAndUser.setRoles(Arrays.asList(adminRole, userRole));
+			adminAndUser.setProvider(AuthProvider.local);
+			adminAndUser.setProviderId("local");
+			userRepository.save(adminAndUser);
+		}
+
 		alreadySetup = true;
 	}
 

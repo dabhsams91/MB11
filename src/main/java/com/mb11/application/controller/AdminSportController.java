@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.admin.sport.Series;
 import com.mb11.application.service.sport.CricSportSyncService;
-import com.mb11.application.service.sport.EntitySportAPIService;
 
 @RestController
 @RequestMapping("/cricapi")
