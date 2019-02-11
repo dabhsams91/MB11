@@ -3,7 +3,9 @@ package com.mb11.application.model.user;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
@@ -29,9 +32,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * The Class Users.
  */
 @Entity
-@Table(name = "Users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "email")
-})
+@Table(name = "Users", uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
 public class User {
 
 	/** The id. */
@@ -103,6 +104,9 @@ public class User {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "ID"))
 	private Collection<Role> roles;
+
+	@OneToMany(mappedBy = "userid", cascade = CascadeType.ALL)
+	private Set<Address> address;
 
 	/**
 	 * Instantiates a new users.
@@ -476,6 +480,14 @@ public class User {
 
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(Set<Address> address) {
+		this.address = address;
 	}
 
 }

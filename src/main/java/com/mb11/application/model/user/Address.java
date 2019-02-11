@@ -11,63 +11,60 @@ import javax.persistence.Table;
  * The Class Address.
  */
 @Entity
-@Table(name="Address")
-public class Address 
-{
-	
+@Table(name = "Address")
+public class Address {
+
 	/** The id. */
 	@Id
 	@GeneratedValue
 	private Long ID;
-	
+
 	/** The address 1. */
-	@Column(length=100)
+	@Column(length = 100)
 	private String address1;
-	
+
 	/** The address 2. */
-	@Column(length=100)
-	private String address2; 
-	
+	@Column(length = 100)
+	private String address2;
+
 	/** The city. */
-	@Column(length=100)
-	private String city;   
-	
+	@Column(length = 100)
+	private String city;
+
 	/** The state. */
-	@Column(length=100)
-	private String state;   
-	
+	@Column(length = 100)
+	private String state;
+
 	/** The country. */
-	@Column(length=100)
-	private String country;  
-	
+	@Column(length = 100)
+	private String country;
+
 	/** The pincode. */
-	@Column(length=100)
+	@Column(length = 100)
 	private String pincode;
-	
-	
-	
+
+	private User userid;
+
 	/**
 	 * Instantiates a new address.
 	 */
-	public Address()
-	{
-		
+	public Address() {
+
 	}
-	
+
 	/**
 	 * Instantiates a new address.
 	 *
 	 * @param address1 the address 1
 	 * @param address2 the address 2
-	 * @param city the city
-	 * @param state the state
-	 * @param country the country
-	 * @param pincode the pincode
+	 * @param city     the city
+	 * @param state    the state
+	 * @param country  the country
+	 * @param pincode  the pincode
 	 */
-	public Address(String address1, String address2, String city, String state, String country,
-			String pincode) {
+	public Address(String address1, String address2, String city, String state, String country, String pincode) {
 		super();
-	
+
 		this.address1 = address1;
 		this.address2 = address2;
 		this.city = city;
@@ -75,18 +72,17 @@ public class Address
 		this.country = country;
 		this.pincode = pincode;
 	}
-	
-	
+
 	/**
 	 * Instantiates a new address.
 	 *
-	 * @param iD the i D
+	 * @param iD       the i D
 	 * @param address1 the address 1
 	 * @param address2 the address 2
-	 * @param city the city
-	 * @param state the state
-	 * @param country the country
-	 * @param pincode the pincode
+	 * @param city     the city
+	 * @param state    the state
+	 * @param country  the country
+	 * @param pincode  the pincode
 	 */
 	public Address(Long iD, String address1, String address2, String city, String state, String country,
 			String pincode) {
@@ -99,8 +95,7 @@ public class Address
 		this.country = country;
 		this.pincode = pincode;
 	}
-	
-	
+
 	/**
 	 * Gets the id.
 	 *
@@ -109,7 +104,7 @@ public class Address
 	public Long getID() {
 		return ID;
 	}
-	
+
 	/**
 	 * Sets the id.
 	 *
@@ -118,7 +113,7 @@ public class Address
 	public void setID(Long iD) {
 		ID = iD;
 	}
-	
+
 	/**
 	 * Gets the address 1.
 	 *
@@ -127,7 +122,7 @@ public class Address
 	public String getAddress1() {
 		return address1;
 	}
-	
+
 	/**
 	 * Sets the address 1.
 	 *
@@ -136,7 +131,7 @@ public class Address
 	public void setAddress1(String address1) {
 		this.address1 = address1;
 	}
-	
+
 	/**
 	 * Gets the address 2.
 	 *
@@ -145,7 +140,7 @@ public class Address
 	public String getAddress2() {
 		return address2;
 	}
-	
+
 	/**
 	 * Sets the address 2.
 	 *
@@ -154,7 +149,7 @@ public class Address
 	public void setAddress2(String address2) {
 		this.address2 = address2;
 	}
-	
+
 	/**
 	 * Gets the city.
 	 *
@@ -163,7 +158,7 @@ public class Address
 	public String getCity() {
 		return city;
 	}
-	
+
 	/**
 	 * Sets the city.
 	 *
@@ -172,7 +167,7 @@ public class Address
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	/**
 	 * Gets the state.
 	 *
@@ -181,7 +176,7 @@ public class Address
 	public String getState() {
 		return state;
 	}
-	
+
 	/**
 	 * Sets the state.
 	 *
@@ -190,7 +185,7 @@ public class Address
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	/**
 	 * Gets the country.
 	 *
@@ -199,7 +194,7 @@ public class Address
 	public String getCountry() {
 		return country;
 	}
-	
+
 	/**
 	 * Sets the country.
 	 *
@@ -208,7 +203,7 @@ public class Address
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	/**
 	 * Gets the pincode.
 	 *
@@ -217,7 +212,7 @@ public class Address
 	public String getPincode() {
 		return pincode;
 	}
-	
+
 	/**
 	 * Sets the pincode.
 	 *
@@ -225,7 +220,14 @@ public class Address
 	 */
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
-	}  
-	
-	
+	}
+
+	public User getUserid() {
+		return userid;
+	}
+
+	public void setUserid(User userid) {
+		this.userid = userid;
+	}
+
 }
