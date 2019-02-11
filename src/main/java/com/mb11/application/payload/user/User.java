@@ -1,4 +1,4 @@
-package com.mb11.application.payload;
+package com.mb11.application.payload.user;
 
 import java.util.Date;
 import java.util.Set;

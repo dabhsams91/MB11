@@ -1,4 +1,4 @@
-package com.mb11.application.payload;
+package com.mb11.application.payload.user;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

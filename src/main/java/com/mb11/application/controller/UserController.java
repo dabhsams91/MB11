@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mb11.application.exception.ResourceNotFoundException;
 import com.mb11.application.model.user.User;
-import com.mb11.application.payload.Role;
+import com.mb11.application.payload.user.Role;
 import com.mb11.application.security.CurrentUser;
 import com.mb11.application.security.UserPrincipal;
 import com.mb11.application.service.user.UsersService;
@@ -23,12 +23,12 @@ public class UserController {
 
 	@GetMapping("/user/me")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public com.mb11.application.payload.User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+	public com.mb11.application.payload.user.User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
 
 		User user = usersService.getUsersById(userPrincipal.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 
-		com.mb11.application.payload.User payloadUser = new com.mb11.application.payload.User();
+		com.mb11.application.payload.user.User payloadUser = new com.mb11.application.payload.user.User();
 		payloadUser.setID(user.getID());
 		payloadUser.setCreatetime(user.getCreatetime());
 		payloadUser.setDob(user.getDob());
@@ -59,12 +59,12 @@ public class UserController {
 
 	@GetMapping("/admin/me")
 	@PreAuthorize("hasRole('ADMIN')")
-	public com.mb11.application.payload.User getCurrentAdmin(@CurrentUser UserPrincipal userPrincipal) {
+	public com.mb11.application.payload.user.User getCurrentAdmin(@CurrentUser UserPrincipal userPrincipal) {
 
 		User user = usersService.getUsersById(userPrincipal.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 
-		com.mb11.application.payload.User payloadUser = new com.mb11.application.payload.User();
+		com.mb11.application.payload.user.User payloadUser = new com.mb11.application.payload.user.User();
 		payloadUser.setID(user.getID());
 		payloadUser.setCreatetime(user.getCreatetime());
 		payloadUser.setDob(user.getDob());
