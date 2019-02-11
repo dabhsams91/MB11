@@ -44,6 +44,10 @@ public class User {
 
 	private Set<Role> roles;
 
+	private Set<Address> addresses;
+
+	private Set<InvitePlatform> invitePlatforms;
+
 	/**
 	 * Instantiates a new users.
 	 */
@@ -309,6 +313,22 @@ public class User {
 
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
+	}
+
+	public Set<Address> getAddresses() {
+		return addresses;
+	}
+
+	public void setAddresses(Set<Address> addresses) {
+		this.addresses = addresses;
+	}
+
+	public Set<InvitePlatform> getInvitePlatforms() {
+		return invitePlatforms;
+	}
+
+	public void setInvitePlatforms(Set<InvitePlatform> invitePlatforms) {
+		this.invitePlatforms = invitePlatforms;
 	}
 
 }
