@@ -43,8 +43,6 @@ public class Address {
 	@Column(length = 100)
 	private String pincode;
 
-	private User userid;
-
 	/**
 	 * Instantiates a new address.
 	 */
@@ -71,6 +69,7 @@ public class Address {
 		this.state = state;
 		this.country = country;
 		this.pincode = pincode;
+		// this.user = user;
 	}
 
 	/**
@@ -94,6 +93,7 @@ public class Address {
 		this.state = state;
 		this.country = country;
 		this.pincode = pincode;
+		// this.user = user;
 	}
 
 	/**
@@ -220,14 +220,6 @@ public class Address {
 	 */
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
-	}
-
-	public User getUserid() {
-		return userid;
-	}
-
-	public void setUserid(User userid) {
-		this.userid = userid;
 	}
 
 }

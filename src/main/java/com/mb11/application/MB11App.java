@@ -14,29 +14,26 @@ import com.mb11.application.service.sport.EntitySportAPIService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(MB11Properties.class)
-public class MB11App implements CommandLineRunner
-{
+public class MB11App implements CommandLineRunner {
 	@Autowired
 	EntitySportAPIService es;
-	
+
 	@Autowired
 	SeriesRepository sr;
-	
+
 	@Autowired
 	MTeamRepository mtr;
-	
+
 	@Autowired
 	MatchRepository mr;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(MB11App.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		
+		//SpringApplication.run(MB11App.class, args);		
 	}
 
-	
 }

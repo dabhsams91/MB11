@@ -1,6 +1,6 @@
 package com.mb11.application.payload.user;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 // TODO: Auto-generated Javadoc
@@ -34,11 +34,11 @@ public class User {
 
 	private String lastname;
 
-	private Date dob;
+	private LocalDate dob;
 
-	private Date createtime;
+	private LocalDate createtime;
 
-	private Date updatetime;
+	private LocalDate updatetime;
 
 	private String reffrencecode;
 
@@ -240,7 +240,7 @@ public class User {
 	 *
 	 * @return the dob
 	 */
-	public Date getDob() {
+	public LocalDate getDob() {
 		return dob;
 	}
 
@@ -249,7 +249,7 @@ public class User {
 	 *
 	 * @param dob the new dob
 	 */
-	public void setDob(Date dob) {
+	public void setDob(LocalDate dob) {
 		this.dob = dob;
 	}
 
@@ -258,7 +258,7 @@ public class User {
 	 *
 	 * @return the createtime
 	 */
-	public Date getCreatetime() {
+	public LocalDate getCreatetime() {
 		return createtime;
 	}
 
@@ -267,7 +267,7 @@ public class User {
 	 *
 	 * @param createtime the new createtime
 	 */
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(LocalDate createtime) {
 		this.createtime = createtime;
 	}
 
@@ -276,7 +276,7 @@ public class User {
 	 *
 	 * @return the updatetime
 	 */
-	public Date getUpdatetime() {
+	public LocalDate getUpdatetime() {
 		return updatetime;
 	}
 
@@ -285,7 +285,7 @@ public class User {
 	 *
 	 * @param updatetime the new updatetime
 	 */
-	public void setUpdatetime(Date updatetime) {
+	public void setUpdatetime(LocalDate updatetime) {
 		this.updatetime = updatetime;
 	}
 

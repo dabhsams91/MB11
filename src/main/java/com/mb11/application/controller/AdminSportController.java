@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mb11.application.payload.ApiResponse;
 import com.mb11.application.payload.admin.sport.Series;
 import com.mb11.application.service.sport.CricSportSyncService;
+import com.mb11.application.sport.helper.SportUtil;
 
 @RestController
 @RequestMapping("/cricapi")
@@ -43,7 +44,9 @@ public class AdminSportController {
 
 	public ResponseEntity<?> syncSeriesAndTeam(Date toDate, Date fromDate) {
 
-		cricSportSyncService.syncSeriesTeamsMatchAndPlayers("");
+		String duration = SportUtil.getDuration(toDate, fromDate);
+
+		cricSportSyncService.syncSeriesTeamsMatchAndPlayers(duration);
 		ApiResponse apiResponse = new ApiResponse(true, "Data sync successfully");
 
 		return ResponseEntity.ok(apiResponse);

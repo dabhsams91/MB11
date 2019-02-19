@@ -43,14 +43,22 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		if (alreadySetup)
 			return;
 
+		Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
+		Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
+		List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
+		List<Privilege> userPrivileges = Arrays.asList(readPrivilege, writePrivilege);
+		createRoleIfNotFound("ADMIN", adminPrivileges);
+		createRoleIfNotFound("USER", userPrivileges);
+
 		Role adminRole = roleRepository.findByName("ADMIN");
 		Role userRole = roleRepository.findByName("USER");
+		
 		if (!userRepository.existsByEmail("test@test.com")) {
 			User adminUser = new User();
 			adminUser.setFirstname("Test");
 			adminUser.setLastname("Test");
 			adminUser.setPassword(passwordEncoder.encode("test"));
-			adminUser.setEmail("");
+			adminUser.setEmail("test@test.com");
 			adminUser.setRoles(Arrays.asList(adminRole));
 			adminUser.setProvider(AuthProvider.local);
 			adminUser.setProviderId("local");
