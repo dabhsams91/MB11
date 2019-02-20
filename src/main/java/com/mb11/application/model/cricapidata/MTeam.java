@@ -3,10 +3,13 @@ package com.mb11.application.model.cricapidata;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -44,7 +47,10 @@ public class MTeam {
 	@Column(nullable = false)
 	private Sporttype sporttype;
 
-	@ManyToMany(mappedBy = "mTeams")
+	
+	@ManyToMany(cascade = { CascadeType.ALL })
+	@JoinTable(name = "SeriesTeamLink", joinColumns = { @JoinColumn(name = "sid") }, inverseJoinColumns = {
+			@JoinColumn(name = "mteamid") })
 	private Set<Series> series = new HashSet<>();
 
 	public MTeam() {
