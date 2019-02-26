@@ -1,5 +1,8 @@
 package com.mb11.application.payload.admin.sport;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Player {
 
 	private long objId;

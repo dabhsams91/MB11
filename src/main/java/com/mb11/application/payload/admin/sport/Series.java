@@ -2,6 +2,10 @@ package com.mb11.application.payload.admin.sport;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+@Service
 public class Series {
 
 	private long objId;
