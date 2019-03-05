@@ -22,10 +22,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.mb11.application.dao.cricapidata.MTeamRepository;
 import com.mb11.application.dao.cricapidata.MatchRepository;
+import com.mb11.application.dao.cricapidata.PlayerCreditRepository;
 import com.mb11.application.dao.cricapidata.SeriesRepository;
 import com.mb11.application.dao.cricapidata.TeamPlayersRepository;
 import com.mb11.application.model.cricapidata.MTeam;
 import com.mb11.application.model.cricapidata.Match;
+import com.mb11.application.model.cricapidata.PlayerCredit;
 import com.mb11.application.model.cricapidata.Series;
 import com.mb11.application.model.cricapidata.Sporttype;
 import com.mb11.application.model.cricapidata.TeamPlayers;
@@ -55,6 +57,9 @@ public class EntitySportAPIService {
 
 	@Autowired
 	TeamPlayersRepository teamPlayersRepository;
+
+	@Autowired
+	PlayerCreditRepository playerCreditRepository;
 
 	@Autowired
 	MatchRepository matchRepository;
@@ -135,8 +140,8 @@ public class EntitySportAPIService {
 
 		HttpEntity<HttpHeaders> entity = new HttpEntity<HttpHeaders>(RequestUtil.getReqHeader());
 
-		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(series.getSeriesid()), HttpMethod.GET, entity,
-				String.class);
+		ResponseEntity<String> response = restTemplate.exchange(apiHelper.getTeamsApi(series.getSeriesid()),
+				HttpMethod.GET, entity, String.class);
 
 		if (response == null || response.getBody() == null)
 			return null;
@@ -288,27 +293,32 @@ public class EntitySportAPIService {
 				System.out.println("Team id" + mTeam.getTeamname() + "Player Id:" + playerid + " Play name:"
 						+ playesrArray.getJSONObject(j).getString("first_name"));
 
-				if (playerid == 67L) {
-					System.out.println("Team id" + mTeam.getTeamname() + "Player Id:" + playerid + " Play name:"
-							+ playesrArray.getJSONObject(j).getString("first_name"));
-				}
-
 				TeamPlayers teamPlayers = teamPlayersRepository.findByPlayerid(playerid);
+				PlayerCredit playerCredit = null;
+
 				if (teamPlayers == null && !playerIds.contains(playerid)) {
 					teamPlayers = new TeamPlayers();
 					teamPlayers.setPlayerid(playerid);
 					playerIds.add(playerid);
-					
-				} 
-				if(teamPlayers!=null) {
+
+				} else {
+					playerCredit = playerCreditRepository.findByTeamPlayers(teamPlayers);
+
+				}
+
+				if (playerCredit == null) {
+					playerCredit = new PlayerCredit(0.0f, teamPlayers);
+				}
+
+				if (teamPlayers != null) {
 					teamPlayers.setFirstname(playesrArray.getJSONObject(j).getString("first_name"));
 					teamPlayers.setLastname(playesrArray.getJSONObject(j).getString("last_name"));
 					teamPlayers.setMiddlename(playesrArray.getJSONObject(j).getString("middle_name"));
 					teamPlayers.setmTeam(mTeam);
+					teamPlayers.setPlayerCredit(playerCredit);
 					lTeamPlayers.add(teamPlayers);
 				}
-				
-				
+
 			}
 
 		}

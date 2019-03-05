@@ -1,11 +1,13 @@
 package com.mb11.application.model.cricapidata;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -40,6 +42,9 @@ public class TeamPlayers {
 	@ManyToOne
 	@JoinColumn(name = "mteamid", nullable = false)
 	private MTeam mTeam;
+
+	@OneToOne(targetEntity = PlayerCredit.class, cascade = CascadeType.ALL)
+	private PlayerCredit playerCredit;
 
 	/**
 	 * Instantiates a new team players.
@@ -103,6 +108,14 @@ public class TeamPlayers {
 
 	public void setmTeam(MTeam mTeam) {
 		this.mTeam = mTeam;
+	}
+
+	public PlayerCredit getPlayerCredit() {
+		return playerCredit;
+	}
+
+	public void setPlayerCredit(PlayerCredit playerCredit) {
+		this.playerCredit = playerCredit;
 	}
 
 	@Override

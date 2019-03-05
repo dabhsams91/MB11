@@ -1,10 +1,10 @@
 package com.mb11.application.model.cricapidata;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 // TODO: Auto-generated Javadoc
@@ -25,9 +25,8 @@ public class PlayerCredit {
 
 	/** The vseries teamplayerid. */
 	/** The sid. */
-	@ManyToOne
-	@JoinColumn(name = "seriesteamplayerid", nullable = false)
-	private SeriesTeamPlayer vseriesTeamplayerid;
+	@OneToOne(targetEntity = TeamPlayers.class, cascade = CascadeType.ALL)
+	private TeamPlayers teamPlayers;
 
 	/**
 	 * Instantiates a new player credit.
@@ -35,11 +34,11 @@ public class PlayerCredit {
 	 * @param credit              the credit
 	 * @param vseriesTeamplayerid the vseries teamplayerid
 	 */
-	public PlayerCredit(float credit, SeriesTeamPlayer vseriesTeamplayerid) {
+	public PlayerCredit(float credit, TeamPlayers teamPlayers) {
 		super();
 
 		this.credit = credit;
-		this.vseriesTeamplayerid = vseriesTeamplayerid;
+		this.teamPlayers = teamPlayers;
 	}
 
 	/**
@@ -49,11 +48,11 @@ public class PlayerCredit {
 	 * @param credit              the credit
 	 * @param vseriesTeamplayerid the vseries teamplayerid
 	 */
-	public PlayerCredit(Long iD, float credit, SeriesTeamPlayer vseriesTeamplayerid) {
+	public PlayerCredit(Long iD, float credit, TeamPlayers teamPlayers) {
 		super();
 		ID = iD;
 		this.credit = credit;
-		this.vseriesTeamplayerid = vseriesTeamplayerid;
+		this.teamPlayers = teamPlayers;
 	}
 
 	/**
@@ -92,22 +91,12 @@ public class PlayerCredit {
 		this.credit = credit;
 	}
 
-	/**
-	 * Gets the vseries teamplayerid.
-	 *
-	 * @return the vseries teamplayerid
-	 */
-	public SeriesTeamPlayer getVseriesTeamplayerid() {
-		return vseriesTeamplayerid;
+	public TeamPlayers getTeamPlayers() {
+		return teamPlayers;
 	}
 
-	/**
-	 * Sets the vseries teamplayerid.
-	 *
-	 * @param vseriesTeamplayerid the new vseries teamplayerid
-	 */
-	public void setVseriesTeamplayerid(SeriesTeamPlayer vseriesTeamplayerid) {
-		this.vseriesTeamplayerid = vseriesTeamplayerid;
+	public void setTeamPlayers(TeamPlayers teamPlayers) {
+		this.teamPlayers = teamPlayers;
 	}
 
 }

@@ -145,27 +145,10 @@ public class AdminSportController {
 	
 	
 
-	/*@Autowired
+	@Autowired
 	CricSportSyncService cricSportSyncService;
 
-	@GetMapping("/series")
-	public ResponseEntity<?> getSeriesBtnTime(Date toDate, Date fromDate) throws JSONException, ParseException {
-
-		ApiResponse apiResponse = new ApiResponse(true, "Series list data fetch successfully");
-		return ResponseEntity.ok(apiResponse);
-	}
-
-	@GetMapping("/series/{id}")
-	public ResponseEntity<?> getSeriesBtnTime(@PathParam("id") Long id) {
-
-		Series series = new Series();
-		series.setObjId(10);
-		series.setLink("/");
-		ApiResponse apiResponse = new ApiResponse(true, "Series data fetch successfully");
-		apiResponse.setResponse(series);
-		return ResponseEntity.ok(apiResponse);
-	}
-
+	
 	public ResponseEntity<?> syncSeriesAndTeam(Date toDate, Date fromDate) throws JSONException {
 
 		cricSportSyncService.syncSeriesTeamsMatchAndPlayers("");
@@ -173,5 +156,5 @@ public class AdminSportController {
 
 		return ResponseEntity.ok(apiResponse);
 	}
-*/
+
 }

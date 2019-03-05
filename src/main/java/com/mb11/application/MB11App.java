@@ -10,6 +10,7 @@ import com.mb11.application.config.MB11Properties;
 import com.mb11.application.dao.cricapidata.MTeamRepository;
 import com.mb11.application.dao.cricapidata.MatchRepository;
 import com.mb11.application.dao.cricapidata.SeriesRepository;
+import com.mb11.application.service.sport.CricSportSyncService;
 import com.mb11.application.service.sport.EntitySportAPIService;
 
 @SpringBootApplication
@@ -27,8 +28,10 @@ public class MB11App implements CommandLineRunner {
 	@Autowired
 	MatchRepository mr;
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(MB11App.class, args);
+		
 	}
 
 	@Override

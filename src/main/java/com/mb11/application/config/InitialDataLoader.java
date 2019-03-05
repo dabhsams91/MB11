@@ -19,6 +19,7 @@ import com.mb11.application.model.user.AuthProvider;
 import com.mb11.application.model.user.Privilege;
 import com.mb11.application.model.user.Role;
 import com.mb11.application.model.user.User;
+import com.mb11.application.service.sport.CricSportSyncService;
 
 @Component
 public class InitialDataLoader implements ApplicationListener<ContextRefreshedEvent> {
@@ -36,6 +37,10 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	CricSportSyncService cricSportSyncService;
+	
 
 	@Override
 	@Transactional
@@ -78,6 +83,7 @@ public class InitialDataLoader implements ApplicationListener<ContextRefreshedEv
 		}
 
 		alreadySetup = true;
+		cricSportSyncService.syncSeriesTeamsMatchAndPlayers("201819");
 	}
 
 	@Transactional
